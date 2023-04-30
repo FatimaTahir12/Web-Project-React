@@ -1,0 +1,339 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+
+*
+{
+    padding: 0px;
+    margin:  0px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body
+{
+    background-color:#F5F5F5;/*#a5b3e4*/
+    perspective: 1500px;
+}
+.card
+{
+    width: 34rem;
+    height: 45rem;
+    position: relative;
+    margin: 50px auto;
+    top: -18px;
+    font-family: tahoma;
+    transform-style: preserve-3d;
+    transition: all 1s ease-in-out;
+    border-radius: 26px;
+    background: #F5F5F5;
+    box-shadow:  5px 5px 8px #acacac,
+                -5px -5px 8px #ffffff;
+}
+
+.forgotPassword{
+    text-decoration: none;
+    font-size: 13px;
+    color: #E2D784;
+    position: relative;
+    left: -150px;
+    margin-top: 16px;
+}
+.inner-card1
+{
+    background-color: #E2D784;
+    border-radius: 10px;
+    position: relative;
+    float: right;
+    top: 15px;
+    right: 16px;
+    width: 684px;
+    height: 561px;
+}
+
+.name{
+    border-radius: 9px;
+    background: #F5F5F5;
+    box-shadow: inset 5px 5px 7px #b5b5b5,
+                inset -5px -5px 7px #ffffff;
+    border-style: none;
+    font-weight: bolder;
+}
+
+.pass{
+  
+    border-radius: 9px;
+    background: #F5F5F5;
+    box-shadow: inset 5px 5px 7px #b5b5b5,
+                inset -5px -5px 7px #ffffff;
+    border-style: none;
+    font-weight: bolder;
+}
+
+::placeholder{
+    position: relative;
+    top: 3px;
+    left: 8px;
+    font-size: 17px;
+    color: #05595B;
+}
+.img1{
+    width: 25rem;
+    height: 23rem;
+    position: relative;
+    top: 183px;
+    left: 109px;
+    z-index: 1;
+}
+
+.img2{
+    width: 25rem;
+    height: 26rem;
+    position: relative;
+    top: 165px;
+    left: 84px;
+    z-index: 1;
+}
+
+.card > div
+{
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    text-align: center;
+    background-color:#F5F5F5;
+}
+/*front card*/
+.card .front
+{
+    z-index: 1;
+    backface-visibility: hidden;
+}
+
+.one{
+    margin-top: 35px;
+    height: 49px;
+    width: 246px
+}
+
+.or{
+    z-index: 1;
+    position: relative;
+    top: 49px;
+    left: 108px;
+    background-color: #F5F5F5;
+    font-size: 12px;
+    width: 38px;
+    height: 31px;
+}
+
+.logIn1{
+    z-index: 1;
+    position: relative;
+    top: 45px;
+    left: 73px;
+    background-color: #F5F5F5;
+    font-size: 12px;
+    width: 114px;
+    height: 31px;
+}
+hr{
+    margin-top: 23px;
+    width: 16rem;
+    height: 0.5px;
+    background-color: black;
+    position: relative;
+    top: 59px;
+    left: 0px;
+}
+h1{
+    color: #E2D784;
+    margin-top: 43px;
+}
+.fields{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 0rem;
+    left: 21%;
+    
+}
+
+
+.card .front form
+{
+  
+    padding: 12px 60px 12px 60px; 
+    margin-top:30px;
+    cursor: pointer;
+}
+
+.f1
+{
+    padding: 13px 60px 13px 60px;
+    border-radius: 4px;
+    background-color:#f0f5f9;
+    margin: 7px;
+    border: none;
+    text-align: center;
+    font-size: 15px;
+}
+
+.login_word
+{
+    margin:30px auto;
+    border-bottom:2px solid #FFB30E;
+    width:60px;
+    font-weight: bold;
+}
+.not_registered_word
+{
+    margin-top: 35px;
+    font-size: 14px;
+}
+
+.card .front form p
+{
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.card span
+{
+    cursor: pointer;
+    color:#3A8891;
+}
+/*back card*/
+.card .back
+{
+    z-index: 2;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+.signup_word
+{
+    margin:45px auto 15px auto;
+    border-bottom:2px solid #FFB30E;
+    width:70px;
+    font-weight: bold;
+}
+
+.login_{
+    position: relative;
+    top: 51px;
+    left: -83px;
+}
+
+.field_one{
+    left: 161px;
+}
+.crd{
+    background-color: #05595B;
+}
+
+.back_{
+    top: 36px;
+}
+
+.back_one{
+    top: 26px;
+}
+.box{
+
+    width: 64px;
+    height: 65px;
+    position: relative;
+    top: 0px;
+    left: 0px;
+    border-radius: 15px;
+    background: #F5F5F5;
+    box-shadow:  5px 5px 8px #c2c2c2,
+                -5px -5px 8px #ffffff;
+                margin-right: 40px;
+    border-style: none;
+}
+
+
+.links{
+    position: relative;
+    top: 74px;
+    left: -6px;
+    display: flex;
+    flex-direction: row;
+}
+
+img{
+    width: 54px;
+    height: 55px;
+    margin-top: 3px;
+}
+
+.login{
+    border-style: none;
+    width: 111px;
+    height: 46px;
+    position: relative;
+    top: 35px;
+    left: 67px;
+    border-radius: 12px;
+    color: white;
+    background-color: #062C30;
+}
+
+.signUp{
+    border-style: none;
+    width: 111px;
+    height: 46px;
+    position: relative;
+    top: 35px;
+    left: 67px;
+    border-radius: 12px;
+    color: white;
+    background-color: #062C30;
+}
+
+.notRegistered{
+    position: relative;
+    top: 116px;
+    left: -77px;
+}
+
+.signup{
+    position: relative;
+    left: -141px;
+    top: 34px;
+}
+
+.rotate{
+    position: relative;
+    left: -141px;
+    top: 45px;
+}
+
+.last{
+    
+    font-size: 15px;
+    background-color: #F5F5F5;
+    border-style: none;
+    color:#3A8891;
+}
+
+.last_one{
+    position: relative;
+    left: -141px;
+    top: 72px;
+}
+
+.link_one{
+    top: 42px;
+}
+
+.fa-google{
+    display: contents;
+    width: 111px;
+    height: 46px;
+    position: relative;
+    top: 35px;
+    left: 67px;
+    z-index: 1;
+}
