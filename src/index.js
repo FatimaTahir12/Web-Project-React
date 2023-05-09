@@ -5,16 +5,18 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import {SpeechProvider} from '@speechly/react-client';
-
+import Login from './pages/Login'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <SpeechProvider appId='06a8c019-0238-475d-8874-038468f6d31e' language='en-US' >
   <React.StrictMode>
-     <BrowserRouter>
+  <SpeechProvider appId='06a8c019-0238-475d-8874-038468f6d31e' language='en-US' >
+ 
+   { /* <BrowserRouter>
     <App />
-    </BrowserRouter>
-  </React.StrictMode>
+</BrowserRouter> */}
+  <Login/>
   </SpeechProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

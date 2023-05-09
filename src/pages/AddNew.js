@@ -5,10 +5,6 @@ import Navbar from '../components/navbar'
 import React, {useState, useEffect} from 'react';
 import Popup from '../components/popup';
 import { useFormContext } from "react-hook-form";
-import {PushToTalkButton, PushToTalkButtonContainer, ErrorPanel } from '@speechly/react-ui';
-import { useSpeechContext } from "@speechly/react-client";
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import alanBtn from '@alan-ai/alan-sdk-web';
 
 export default function Home() {
 
@@ -17,25 +13,6 @@ export default function Home() {
   const [newCategory, setCategory] = useState("");
   const [isOpen_2, setIsOpen_2] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const {segment} = useSpeechContext();
-  const ALAN_KEY = `26516bc7a448741ead2804a6795b09912e956eca572e1d8b807a3e2338fdd0dc/stage`
-
-  useEffect(() => {
-    alanBtn({
-        key: ALAN_KEY,
-        onCommand: (commandData) => {
-          console.log(commandData)
-        }
-    });
-  }, []);
-
-    const {
-      transcript,
-      listening,
-      resetTranscript,
-      browserSupportsSpeechRecognition
-    } = useSpeechRecognition();
-  
 
   function handleClick(event){
       setCategory(event.currentTarget.id);

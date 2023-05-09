@@ -20,7 +20,8 @@ function App() {
   }
 
   return (
-    <FormProvider{...methods}>
+    
+   <FormProvider{...methods}>
     <Routes>
       <Route path="/" element={<Layout/>}>
         <Route path="/" element={<Dashboard/>}/>

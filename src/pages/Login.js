@@ -3,15 +3,62 @@
 import { login_signUp, flip }  from "../script"   
 import "../styles/style(signUp).css"
 
+import { useEffect, useState } from "react";
+import { useSpeechContext } from "@speechly/react-client";
+import {
+    PushToTalkButton,
+    BigTranscript,
+    IntroPopup,
+  } from "@speechly/react-ui";
+  import { VoiceInput, VoiceDatePicker } from "@speechly/react-voice-forms";
+import "@speechly/react-voice-forms/css/theme/mui.css";
+
 export default function Home() {
+
+    const { segment } = useSpeechContext();
+    const [data, setData] = useState({
+    name: "",
+    email_address: "",
+    password: "",
+    confirm_password: "",
+  });
+    
+  const handleChange = (e, key) => setData({ ...data, [key]: e.target.value });
+  const [toggle, setToggle] = useState(false)
+
+  useEffect(() => {
+    if (segment) {
+      if (segment.entities) {
+        segment.entities.forEach((entity) => {
+          console.log(entity.type, entity.value);
+          setData((data) => ({ ...data, [entity.type]: entity.value }));
+        });
+      }
+      if (segment.isFinal) {
+        if (segment.entities) {
+          segment.entities.forEach((entity) => {
+            console.log("✅", entity.type, entity.value);
+            setData((data) => ({ ...data, [entity.type]: entity.value }));
+          });
+        }
+      }
+    }
+  }, [segment]);
+
     return (
 
        <div onLoad={login_signUp()}>
+
+<BigTranscript placement="top" />
+      <PushToTalkButton placement="bottom" captureKey=" " powerOn="auto" />
+      <IntroPopup />
+      
         <div className="card" id="card">
         <div className="front">
             <h1>Welcome Back!</h1>
             <form method="post" action="">
             <div className="fields">
+            
                 <input type="text" className="name one" placeholder="Username" autoComplete="new-password"/>
                 <input type="password" className="pass one" placeholder="Password" autoComplete="new-password"/>
                 <a href="" className="forgotPassword">
@@ -40,17 +87,58 @@ export default function Home() {
         </div>
         <div className="back">
             <h1>Sign Up</h1>
+            <button onClick={() => setToggle(!toggle)} >Use Voice</button>
             <form method="post" action="" id="signUp">
+            
             <div className="fields field_one">
-                <input type="text" className="name one" placeholder="Username" />
+            {!toggle && (
+              <>
+           {/* <VoiceInput
+            changeOnEntityType={data.name}
+            value={data.name}
+            onChange={(e) => handleChange(e, "name")}
+    />*/}
+               <input type="text" className="name one" placeholder="Username" />
+             {/*  <VoiceInput
+            changeOnEntityType={data.email_address}
+            value={data.email_address}
+            onChange={(e) => handleChange(e, "name")}
+  />*/}
                 <input type="text" className="name one" placeholder="Email" />
+               {/* <VoiceInput
+            changeOnEntityType={data.password}
+            value={data.password}
+            onChange={(e) => handleChange(e, "name")}
+/>*/}
                 <input type="text" className="name one" placeholder="Password" />
                 <input
                 type="text"
                 className="name one"
                 placeholder="Confirm Password"
                 />
+                </>
+                
+)
+            }
+{toggle && (
+  <div className="Form">
+  <VoiceInput changeOnEntityType={data.name} value={data.name} onChange={(e) => handleChange(e, "name")}
+    />
+    <VoiceInput
+    changeOnEntityType={data.email_address}
+    value={data.email_address}
+    onChange={(e) => handleChange(e, "name")}
+/>
+<VoiceInput
+            changeOnEntityType={data.password}
+            value={data.password}
+            onChange={(e) => handleChange(e, "name")}
+/>
+</div>
+
+)}
                 <button className="login">Sign Up</button>
+               
                 <hr className="back_" />
                 <div className="or back_one">OR</div>
                 <p className="signup">Sign up with:</p>
