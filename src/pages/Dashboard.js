@@ -57,7 +57,7 @@ light_mode
     setTheme(newTheme);
     localStorage.setItem('theme', newTheme);
 
-    if (icon.type === WbSunnyOutlinedIcon) {
+    if (icon.type === "span") {
       setIcon(<span className="material-symbols-outlined">
       dark_mode
       </span>);
@@ -74,11 +74,11 @@ light_mode
         <div className={`container ${theme}  `}>
   <div className="header">
     <div className="nameplate" id="nameplate">
-      <img
+      {/* <img
         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW1p196FdFnjs53-qod0Iv6TbQwPWf3M4yZTRbJHH9KQ&s"
         alt=""
         className="img1"
-      />
+      /> */}
       <h1 className="one">Andrea Gracie</h1>
     </div>
     <button className="settings btn" id="btn"  onClick={togglePopUp}>

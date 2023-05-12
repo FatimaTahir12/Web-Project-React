@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from 'react-router-dom';
 import {SpeechProvider} from '@speechly/react-client';
 import Login from './pages/Login'
+import Dashboard from './pages/Dashboard'
+import Monthly from './pages/Monthly'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -14,7 +16,7 @@ root.render(
    { /* <BrowserRouter>
     <App />
 </BrowserRouter> */}
-  <Login/>
+  <Dashboard/>
   </SpeechProvider>
   </React.StrictMode>
 );

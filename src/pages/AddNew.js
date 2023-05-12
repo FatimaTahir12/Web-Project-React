@@ -25,7 +25,7 @@ export default function Home() {
 
   function showEntry_2(){
     togglePopup_2();
-    Edit;
+    //Edit;
   }
 
   
@@ -63,7 +63,7 @@ export default function Home() {
 
 const handleEditAmount = (entry) => {
 
-  togglePopup_2;
+  togglePopup_2();
  // alert(entry.price)
 
 }
@@ -288,9 +288,6 @@ add
         <button className="btn addBtn" id="submit" type="submit" onClick={showEntry}>
           Submit
         </button>
-        <div>
-          <h3>hellooooo</h3>
-    </div>
       </div>
     </div>
 
