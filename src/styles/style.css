@@ -50,6 +50,23 @@ body{
                          
 }
 
+@media (max-width:1200px){
+    .container{
+        row-gap: 40px;
+        height: 100vh;
+        display:grid;
+        grid-template-columns: 0.3fr 0.7fr;
+        grid-template-areas: "Nav header"
+                            "Nav Main"
+                            "Nav Main"
+                            "Nav Aside"
+                            "Nav Aside";
+        grid-template-rows: 0.1fr 0.4fr 1fr 0.4fr 1fr;
+        text-align: center;
+        background: var(--background-color);
+    }
+}
+
 .container-monthly{
     height: 100vh;
     display:grid;
@@ -302,6 +319,7 @@ box-shadow:  var(--inset-box-shadow);
     line-height: 30px;
     width: 11rem;
     background-color: var(--background-color) !important;
+    background: transparent !important;
 }
 
 .md{
@@ -318,15 +336,12 @@ h3{
     color: inherit;
     text-decoration: inherit;
     background-color: var(--background-color);
+    background: transparent !important;
 }
 
 .logout{
     position: relative;
     top: 149px;
-}
-
-.row{
-    background-color: var(--background-color);
 }
 
 
@@ -607,13 +622,32 @@ input{
     display: block;
 }
 
-.addBook{
+.addBook {
     position: fixed;
     z-index: 1;
-    top: 22rem;
-    left: 49rem;
+    top: 50%;
+    left: 50%;
+
 }
- 
+
+@media (max-width: 1920px) {
+.addBook {
+    top: 50%;
+    left: 50%;
+
+    z-index: 1;
+}
+}
+
+@media (max-width: 1080px) {
+.addBook {
+    top: 50%;
+    left: 50%;
+
+    z-index: 1;
+}
+}
+  
 .popup.active .addBook{
     transition: all 300ms ease-in-out;
     transform: translate(-50%, -50%) scale(1);
@@ -687,6 +721,10 @@ input:focus{
     left: 4px;
     font-size: 25px;
     color: #E2D784;
+}
+
+@media (max-width: 1000px){
+    
 }
 
 .categories-popup{
