@@ -358,22 +358,22 @@ app.post("/update-goal", async (req, res) => {
   }
 });
 
-app.get("/goals", async (req, res) => {
+app.post("/goals", async (req, res) => {
   try {
     const {username} = req.body;
-    const filter = {username}
-    const goals = await Goal.find(filter).populate("categories").populate("goals");
+    const filter = {username: username}
+    const goals = await Goal.find(filter);
     res.status(200).json(goals);
   } catch (err) {
     console.log(err);
   }
 });
 
-app.get("/expenses", async (req, res) => {
+app.post("/expenses", async (req, res) => {
   try {
     const {username} = req.body;
-    const filter = {username}
-    const expenses = await Expense.find(filter).populate("categories").populate("goals");
+    const filter = {username: username}
+    const expenses = await Expense.find(filter);
     res.status(200).json(expenses);
   } catch (err) {
     console.log(err);
@@ -385,7 +385,7 @@ app.get("/expenses", async (req, res) => {
 app.get("/users", async (req, res) => {
   try {
     const filter = {}
-    const users = await User.find(filter).populate("categories").populate("goals");
+    const users = await User.find(filter).populate("expenses").populate("goals");
     res.status(200).json(users);
   } catch (err) {
     console.log(err);

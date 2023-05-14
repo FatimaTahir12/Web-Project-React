@@ -2,8 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Router = require("./routes")
 const bodyParser = require("body-parser")
+const cors = require("cors")
+
 const app = express();
-// require('dotenv').config({path:__dirname+'/.env'});
+
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 const { MONGO_URI } = process.env;
 
