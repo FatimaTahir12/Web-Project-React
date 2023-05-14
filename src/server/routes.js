@@ -358,7 +358,7 @@ app.post("/update-goal", async (req, res) => {
   }
 });
 
-app.get("/goals", async (req, res) => {
+app.post("/goals", async (req, res) => {
   try {
     const {username} = req.body;
     const filter = {username}
@@ -369,7 +369,7 @@ app.get("/goals", async (req, res) => {
   }
 });
 
-app.get("/expenses", async (req, res) => {
+app.post("/expenses", async (req, res) => {
   try {
     const {username} = req.body;
     const filter = {username}
