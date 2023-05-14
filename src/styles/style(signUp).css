@@ -345,7 +345,9 @@ img{
     left: 151px;
    
 }
+
 .Form input{
+    color: #05595B !important;
     border-radius: 9px !important;
     background: #F5F5F5;
     box-shadow: inset 5px 5px 7px #b5b5b5,
@@ -361,11 +363,14 @@ img{
 
 }
 
+::placeholder{
+    color: #05595B !important;
+}
+
 .name:focus {
-    background: #F5F5F5;
     box-shadow: inset 5px 5px 7px #b5b5b5,
-                inset -5px -5px 7px #ffffff;
-    color: #05595B;
+                inset -5px -5px 7px #ffffff !important;
+    color: #05595B !important;
   }
 
 .Form label{

@@ -90,8 +90,8 @@ export default function Home() {
             <div className="fields">
             
 
-                <input type="text" className="name one" placeholder="Username" autoComplete="new-password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
-                <input type="password" className="pass one" placeholder="Password" autoComplete="new-password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
+                <input type="text" className="name one extra" placeholder="Username" autoComplete="new-password" onFocus={(e) => e.target.style.color = '#05595B'}/>
+                <input type="password" className="pass one extra" placeholder="Password" autoComplete="new-password" onFocus={(e) => e.target.style.color = '#05595B'}/>
                 <button className="login" >Log in</button>              
                 <p className="notRegistered">
                 Not registered? <span onClick={flip}>Create an account</span>
@@ -111,19 +111,19 @@ export default function Home() {
             value={data.name}
             onChange={(e) => handleChange(e, "name")}
     />*/}
-               <input type="text" className="name one" placeholder="Name" onFocus={(e) => e.target.style.borderColor = 'red'} />
+               <input type="text" className="name one extra" placeholder="Name" onFocus={(e) => e.target.style.borderColor = 'red'} />
              {/*  <VoiceInput
             changeOnEntityType={data.email_address}
             value={data.email_address}
             onChange={(e) => handleChange(e, "name")}
   />*/}
-                <input type="text" className="name one" placeholder="Username" onFocus={(e) => e.target.style.borderColor = 'red'} />
+                <input type="text" className="name one extra" placeholder="Username" onFocus={(e) => e.target.style.color = '#05595B'} />
                {/* <VoiceInput
             changeOnEntityType={data.password}
             value={data.password}
             onChange={(e) => handleChange(e, "name")}
 />*/}
-                <input type="text" className="name one" placeholder="Password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
+                <input type="text" className="name one extra" placeholder="Password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
                 </>
                 
 )
@@ -145,7 +145,7 @@ export default function Home() {
 </div>
 
 
-)}
+)}*/}
                 <button className="login" onClick={() => signUpUser()}>Sign Up</button>
                
        
