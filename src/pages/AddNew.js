@@ -15,7 +15,9 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
 
   function handleClick(event){
+
       setCategory(event.currentTarget.id);
+      event.button.disabled = true;
   }
 
   function showEntry(){
@@ -94,7 +96,7 @@ const togglePopup_2 = e => {
     <h2 className="todayH2">Today's Expenditures</h2>
     
       <button
-        className="btn add toggle"
+        className="btn add "
         id="show-login"
         onClick={togglePopUp}
         value={0}
@@ -277,7 +279,7 @@ delete
                 />
                 <p className="item-desc">Beverages</p>
               </div></button>
-            <button className="btn add toggle addNew" id="show-login" onClick={togglePopUp} value={0} >
+            <button className="btn add addNew" id="show-login" onClick={togglePopUp} value={0} >
             <span className="material-symbols-outlined">
 add
 </span>
