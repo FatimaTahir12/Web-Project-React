@@ -13,6 +13,8 @@ import {
   import { VoiceInput, VoiceDatePicker } from "@speechly/react-voice-forms";
 import "@speechly/react-voice-forms/css/theme/mui.css";
 
+import { API } from "../service/api";
+
 export default function Home() {
 
     const { segment } = useSpeechContext();
@@ -25,6 +27,33 @@ export default function Home() {
     
   const handleChange = (e, key) => setData({ ...data, [key]: e.target.value });
   const [toggle, setToggle] = useState(false)
+
+  // const handleRegister = async (event) => {
+  //   event.preventDefault();
+  //   try {
+      
+  //     await registerUser(data);
+  //     // Handle successful registration
+  //   } catch (error) {
+  //     // Handle registration error
+  //   }
+  // };
+
+  // const handleLogin = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     // Call loginUser function with form data
+  //     await loginUser(data);
+  //     // Handle successful login
+  //   } catch (error) {
+  //     // Handle login error
+  //   }
+  // };
+
+  const signUpUser = async () => {
+    let response = await API.signUpUser(data);
+  }
+
 
   useEffect(() => {
     if (segment) {
@@ -49,7 +78,9 @@ export default function Home() {
 
        <div onLoad={login_signUp()}>
 
+
 {/*<BigTranscript placement="top" />
+
       <PushToTalkButton placement="bottom" captureKey=" " powerOn="auto" />
     <IntroPopup />*/}
       
@@ -59,6 +90,7 @@ export default function Home() {
             <form method="post" action="">
             <div className="fields">
             
+
                 <input type="text" className="name one" placeholder="Username" autoComplete="new-password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
                 <input type="password" className="pass one" placeholder="Password" autoComplete="new-password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
                 <button className="login" >Log in</button>              
@@ -113,8 +145,9 @@ export default function Home() {
 />
 </div>
 
-)}*/}
-                <button className="login">Sign Up</button>
+
+)}
+                <button className="login" onClick={() => signUpUser()}>Sign Up</button>
                
        
                 <p className="notRegistered last_one">
@@ -130,4 +163,4 @@ export default function Home() {
 
        </div>
     )
-  }
+}

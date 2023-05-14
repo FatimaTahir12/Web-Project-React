@@ -13,9 +13,11 @@ root.render(
   <React.StrictMode>
   <SpeechProvider appId='06a8c019-0238-475d-8874-038468f6d31e' language='en-US' >
  
- <BrowserRouter>
+
+   { <BrowserRouter>
     <App />
-</BrowserRouter> 
+</BrowserRouter> }
+
   </SpeechProvider>
   </React.StrictMode>
 );
