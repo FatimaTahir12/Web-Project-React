@@ -311,6 +311,52 @@ app.post("/add-goal", async (req, res) => {
 //   }
 
 // });
+app.post("/refresh-goal", async (req, res) => {
+  try {
+    const {username, category} = req.body;
+
+    const goal = await Goal.findOne({username:username, goal_category: category});
+    const today = new Date();
+    const goaldate = new Date(goal.goal_date);
+    var months = (today.getFullYear()- goaldate.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    
+    if (months > 0) {
+      const update = {goal_date: today};
+      await goal.updateOne(update);
+      const expense = await Expense.findOne({username:username, expense_category: category});
+      const expenseUpdate = {amount: 0};
+      await expense.updateOne(expenseUpdate);
+      res.status(200).send("Goal Updated");
+    }
+    res.status(400).send("Goal not refreshed as a month has not yet passed");
+  }
+  catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/update-goal", async (req, res) => {
+  try {
+    const {username, category, amount} = req.body;
+
+    const goal = await Goal.findOne({username:username, goal_category: category});
+    const today = new Date();
+
+    const update = {goal_date: today, amount: amount};
+    await goal.updateOne(update);
+    
+    const expense = await Expense.findOne({username:username, expense_category: category});
+
+    const expenseUpdate = {amount: 0};
+    await expense.updateOne(expenseUpdate);
+    res.status(200).send("Goal Updated");
+  }
+  catch (err) {
+    console.log(err);
+  }
+});
 
 app.get("/goals", async (req, res) => {
   try {
