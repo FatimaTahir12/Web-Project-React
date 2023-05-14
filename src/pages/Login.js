@@ -21,7 +21,7 @@ export default function Home() {
     const [data, setData] = useState({
     name: "",
     username: "",
-    password: "",
+    password: ""
   });
     
   const handleChange = (e, key) => setData({ ...data, [key]: e.target.value });
@@ -50,9 +50,12 @@ export default function Home() {
   // };
 
   const signUpUser = async () => {
-    let response = await API.signUpUser(data);
+    let response = await API.signUpUser(data.name, data.username, data.password);
   }
 
+  const loginUser = async () => {
+    let response = await API.loginUser(data.username, data.password);
+  }
 
   useEffect(() => {
     if (segment) {
@@ -77,11 +80,9 @@ export default function Home() {
 
        <div onLoad={login_signUp()}>
 
-
-{/*<BigTranscript placement="top" />
-
+  <BigTranscript placement="top" />
       <PushToTalkButton placement="bottom" captureKey=" " powerOn="auto" />
-    <IntroPopup />*/}
+      <IntroPopup />
       
         <div className="card" id="card">
         <div className="front">
@@ -89,10 +90,26 @@ export default function Home() {
             <form method="post" action="">
             <div className="fields">
             
-
-                <input type="text" className="name one" placeholder="Username" autoComplete="new-password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
-                <input type="password" className="pass one" placeholder="Password" autoComplete="new-password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
-                <button className="login" >Log in</button>              
+                <input type="text" className="name one" placeholder="Username" autoComplete="new-password"/>
+                <input type="password" className="pass one" placeholder="Password" autoComplete="new-password"/>
+                <a href="" className="forgotPassword">
+                Forgot Password?
+                </a>
+                <button className="login" onClick={() => loginUser()}>Log in</button> 
+                <hr />
+                <div className="or">OR</div>
+                <p className="login_">Log in with:</p>
+                <div className="links">
+                <button className="box">
+                    <img src="https://i.ibb.co/9hMr7Lm/google-filled.png" alt="sign up with google" />
+                </button>
+                <button className="box">
+                    <img src="https://i.ibb.co/vBjsvZT/icons8-facebook-240.png" alt="sign up with facebook" />
+                </button>
+                <button className="box">
+                    <img src="https://i.ibb.co/Rz7RCNN/icons8-mail-150.png" alt="sign up with mail" />
+                </button>
+                </div>
                 <p className="notRegistered">
                 Not registered? <span onClick={flip}>Create an account</span>
                 </p>
@@ -101,6 +118,7 @@ export default function Home() {
         </div>
         <div className="back">
             <h1>Sign Up</h1>
+            <button onClick={() => setToggle(!toggle)} >Use Voice</button>
             <form method="post" action="" id="signUp">
             
             <div className="fields field_one">
@@ -111,24 +129,29 @@ export default function Home() {
             value={data.name}
             onChange={(e) => handleChange(e, "name")}
     />*/}
-               <input type="text" className="name one" placeholder="Name" onFocus={(e) => e.target.style.borderColor = 'red'} />
+               <input type="text" className="name one" placeholder="Username" />
              {/*  <VoiceInput
             changeOnEntityType={data.email_address}
             value={data.email_address}
             onChange={(e) => handleChange(e, "name")}
   />*/}
-                <input type="text" className="name one" placeholder="Username" onFocus={(e) => e.target.style.borderColor = 'red'} />
+                <input type="text" className="name one" placeholder="Email" />
                {/* <VoiceInput
             changeOnEntityType={data.password}
             value={data.password}
             onChange={(e) => handleChange(e, "name")}
 />*/}
-                <input type="text" className="name one" placeholder="Password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
+                <input type="text" className="name one" placeholder="Password" />
+                <input
+                type="text"
+                className="name one"
+                placeholder="Confirm Password"
+                />
                 </>
                 
 )
             }
-{/*{toggle && (
+{toggle && (
   <div className="Form">
   <VoiceInput changeOnEntityType={data.name} value={data.name} onChange={(e) => handleChange(e, "name")}
     />
@@ -144,11 +167,23 @@ export default function Home() {
 />
 </div>
 
-
 )}
                 <button className="login" onClick={() => signUpUser()}>Sign Up</button>
                
-       
+                <hr className="back_" />
+                <div className="or back_one">OR</div>
+                <p className="signup">Sign up with:</p>
+                <div className="links link_one">
+                <button className="box">
+                    <img src="https://i.ibb.co/9hMr7Lm/google-filled.png" alt="sign up with google" />
+                </button>
+                <button className="box">
+                    <img src="https://i.ibb.co/vBjsvZT/icons8-facebook-240.png" alt="sign up with facebook" />
+                </button>
+                <button className="box">
+                    <img src="https://i.ibb.co/Rz7RCNN/icons8-mail-150.png" alt="sign up with mail" />
+                </button>
+                </div>
                 <p className="notRegistered last_one">
                 Already registered?{" "}
                 <button className="last" onClick={flip}>
