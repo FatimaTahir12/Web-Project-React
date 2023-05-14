@@ -18,9 +18,8 @@ export default function Home() {
     const { segment } = useSpeechContext();
     const [data, setData] = useState({
     name: "",
-    email_address: "",
+    username: "",
     password: "",
-    confirm_password: "",
   });
     
   const handleChange = (e, key) => setData({ ...data, [key]: e.target.value });
