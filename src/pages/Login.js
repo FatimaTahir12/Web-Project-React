@@ -2,7 +2,6 @@
 
 import { login_signUp, flip }  from "../script"   
 import "../styles/style(signUp).css"
-import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { useSpeechContext } from "@speechly/react-client";
@@ -23,7 +22,6 @@ export default function Home() {
     name: "",
     username: "",
     password: ""
-
   });
     
   const handleChange = (e, key) => setData({ ...data, [key]: e.target.value });
@@ -78,58 +76,6 @@ export default function Home() {
     }
   }, [segment]);
 
-  const dum =
-  {
-    username: "",
-    password: ""
-  }
-
-  // const logInUser = async () => {
-
-    
-  //   try {
-  //     const response = await axios.post('http://localhost:5000/login', {"username": "hussainarslan", "password": "hussain"});
-  //     console.log(response);
-  //     if (response.data.status === "success") {
-  //       console.log("success");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const logInUser = async () => {
-    try {
-      const response = await axios.post('http://localhost:5000/login', {
-        "username": "hussainarslan",
-        "password": "hussain"
-      });
-      console.log(response);
-      if (response.data.status === "success") {
-        console.log("success");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const signUpUser = async () => {
-    dum.name = 'Test';
-    dum.username = 'Test';
-    dum.password = 'Test';
-
-
-    try {
-      const response = await axios.post('http://localhost:5000/register', dum);
-      console.log(response);
-      if (response.data.status === "success") {
-        console.log("success"); 
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
     return (
 
        <div onLoad={login_signUp()}>
@@ -149,9 +95,7 @@ export default function Home() {
                 <a href="" className="forgotPassword">
                 Forgot Password?
                 </a>
-
-                <button className="login" onClick={() => logInUser()}>Log in</button>
-
+                <button className="login" onClick={() => loginUser()}>Log in</button> 
                 <hr />
                 <div className="or">OR</div>
                 <p className="login_">Log in with:</p>
