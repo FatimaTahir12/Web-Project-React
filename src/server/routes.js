@@ -228,89 +228,20 @@ app.post("/add-goal", async (req, res) => {
   }
 });
 
-// app.post("/get-allblogs", async (req, res) => {
-//   try {
-//     const {author_id} = req.body;
-//     const filter = {author_id: author_id};
-//     const blogs = await Blog.find(filter);
-//     res.status(200).json(blogs);
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
+app.post("/generate-notifications", async (req, res) => {
+  try {
+    const {username} = req.body;
+    const filter = {username: username}
+    const user = await User.find(filter).populate("goals").populate("expenses");
+    const expenses = user.expenses;
+    const goals = user.goals;
 
-// app.post("get-blog", async (req, res) => {
-//   try {
-//     const {_id, author_id} = req.body;
-//     const filter = {_id:_id, author_id: author_id};
-//     const blog = await Blog.find(filter);
-    
-//     if (blog)
-//       res.status(200).json(blog);
-//     else
-//       res.status(400).send("Blog not found");
-//   } catch (err) {
-//     console.log(err);
-//   }
-// });
 
-// app.post("/update-blog", async(req, res)=> {
-//     try {
-//         const {_id, author_id, title, content} = req.body;
+  } catch(err) {
+    console.log(err);
+  }
+});
 
-//         const blog = await Blog.updateOne({_id:_id, author_id: author_id}, 
-//             {
-//                 title: title,
-//                 content: content
-//             });
-
-//         if(blog.modifiedCount == 1)
-//             res.status(200).send("BLog updated successfully");
-//         else {
-//             res.status(400).send("Blog could not be updated");
-//         }
-        
-//     }catch(err) {
-//         console.log(err);
-//     }
-// });
-
-// app.post("/delete-blog", async (req, res) => {
-//     try {
-//         const {_id, author_id} = req.body;
-
-//         await Blog.deleteOne({_id: _id, author_id: author_id});
-//         const user = await User.findOneAndUpdate({_id : author_id}, {$pullAll: {blogs: [_id]}}, {new: true});
-//         res.status(200).send("Item deleted successfully");
-        
-//     }catch (err) {
-//         console.log(err);
-//     }
-// });
-
-// app.post("/comment", async (req, res) => {
-
-//   try {
-//     const {blog_id, commentor_id, comment} = req.body;
-//     var today = new Date();
-
-//     const newcomment = await Comment.create({
-//         blog_id,
-//         commentor_id,
-//         comment_date: today,
-//         comment
-//     })
-//     const user = await User.findOneAndUpdate({_id : commentor_id}, {$push: {comments: newcomment}});
-//     const blog = await Blog.findOneAndUpdate({_id : blog_id}, {$push: {comments: newcomment}});
-//     if(user)
-//       res.status(200).json(user);
-//     else
-//     res.status(400).send("Invalid commentor");
-//   } catch(err) {
-//     console.log(err);
-//   }
-
-// });
 app.post("/refresh-goal", async (req, res) => {
   try {
     const {username, category} = req.body;
