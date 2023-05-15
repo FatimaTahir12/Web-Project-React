@@ -6,8 +6,9 @@ import AddNew from '../pages/AddNew';
 import Login from '../pages/Login';
 import Monthly from '../pages/Monthly'
 import "../styles/style.css"
+import { Link } from "react-router-dom";
 
-export default function Home(props) {
+export default function Home({username}) {
     return (
         <>
         <div className="Nav" id="nav">
@@ -50,9 +51,12 @@ add_box
       <span className="material-symbols-outlined md">
 add_box
 </span>
-        <a href='/editprofile' style={{ color: 'inherit', textDecoration: 'inherit'}}>
-        <h3> Edit Profile</h3>
-        </a>
+        {/* <a href='/editprofile'> */}
+          <Link to={`/editprofile/${username}`}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
+
+            <h3> Edit Profile</h3>
+          </Link>
+        {/* </a> */}
       </div>
 
       <div className="stats row logout">

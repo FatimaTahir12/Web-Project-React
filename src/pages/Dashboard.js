@@ -100,7 +100,7 @@ export default function Home(props) {
         {icon}
       </button>
     </div>
-  <Navbar />
+  <Navbar  username={username}/>
     <div className="Main">
       <div className="recent" id="recent">
         <h1 className="headings ">Recent Transactions</h1>
