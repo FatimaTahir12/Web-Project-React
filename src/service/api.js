@@ -41,6 +41,7 @@ const processResponse = (response) => {
 
 export const SERVICE_URL = {
     signUpUser: {url: '/register', method: 'POST'},
+    loginUser: {url: '/login', method: 'POST'},
 }
 
 const API = {};

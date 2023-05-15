@@ -15,17 +15,34 @@ import "@speechly/react-voice-forms/css/theme/mui.css";
 
 import { API } from "../service/api";
 
+const signupInitialValues = {
+  name: '',
+  username: '',
+  password: '',
+};
+
+const loginInitialValues = {
+  username: '',
+  password: '',
+};
+
 export default function Home() {
 
     const { segment } = useSpeechContext();
-    const [data, setData] = useState({
-    name: "",
-    username: "",
-    password: "",
-  });
+   
     
   const handleChange = (e, key) => setData({ ...data, [key]: e.target.value });
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
+  const [login, setLogin] = useState(loginInitialValues);
+  const [signup, setSignup] = useState(signupInitialValues);
+
+  const onInputChange = (e) => {
+    setSignup({ ...signup, [e.target.name]: e.target.value });
+  };
+
+  const onValueChange = (e) => {
+    setLogin({ ...login, [e.target.name]: e.target.value });
+  };
 
   // const handleRegister = async (event) => {
   //   event.preventDefault();
@@ -50,9 +67,12 @@ export default function Home() {
   // };
 
   const signUpUser = async () => {
-    let response = await API.signUpUser(data);
+    let response = await API.signUpUser(data.name, data.username, data.password);
   }
 
+  const loginUser = async () => {
+    let response = await API.loginUser(data.username, data.password);
+  }
 
   useEffect(() => {
     if (segment) {
@@ -76,23 +96,19 @@ export default function Home() {
     return (
 
        <div onLoad={login_signUp()}>
-
-
-{/*<BigTranscript placement="top" />
-
-      <PushToTalkButton placement="bottom" captureKey=" " powerOn="auto" />
-    <IntroPopup />*/}
-      
+ 
         <div className="card" id="card">
         <div className="front">
             <h1>Welcome Back!</h1>
             <form method="post" action="">
             <div className="fields">
             
-
-                <input type="text" className="name one extra" placeholder="Username" autoComplete="new-password" onFocus={(e) => e.target.style.color = '#05595B'}/>
-                <input type="password" className="pass one extra" placeholder="Password" autoComplete="new-password" onFocus={(e) => e.target.style.color = '#05595B'}/>
-                <button className="login" >Log in</button>              
+                <input type="text" className="name one" onChange={(e)=> onValueChange(e)}
+              name="username"
+            value={login.username} placeholder="Username" autoComplete="new-password" />
+                <input type="password" className="pass one"onChange={(e)=> onValueChange(e)}
+            name="password"  value={login.password}  placeholder="Password" autoComplete="new-password"/>
+                <button className="login" onClick={() => loginUser()}>Log in</button>             
                 <p className="notRegistered">
                 Not registered? <span onClick={flip}>Create an account</span>
                 </p>
@@ -101,54 +117,20 @@ export default function Home() {
         </div>
         <div className="back">
             <h1>Sign Up</h1>
+          
             <form method="post" action="" id="signUp">
             
             <div className="fields field_one">
-            {!toggle && (
+          
               <>
-           {/* <VoiceInput
-            changeOnEntityType={data.name}
-            value={data.name}
-            onChange={(e) => handleChange(e, "name")}
-    />*/}
-               <input type="text" className="name one extra" placeholder="Name" onFocus={(e) => e.target.style.borderColor = 'red'} />
-             {/*  <VoiceInput
-            changeOnEntityType={data.email_address}
-            value={data.email_address}
-            onChange={(e) => handleChange(e, "name")}
-  />*/}
-                <input type="text" className="name one extra" placeholder="Username" onFocus={(e) => e.target.style.color = '#05595B'} />
-               {/* <VoiceInput
-            changeOnEntityType={data.password}
-            value={data.password}
-            onChange={(e) => handleChange(e, "name")}
-/>*/}
-                <input type="text" className="name one extra" placeholder="Password" onFocus={(e) => e.target.style.borderColor = 'red'}/>
+               <input type="text" className="name one" onChange={(e) => onInputChange(e)} name='username' placeholder="Username" />
+           
+                <input type="text" className="name one" onChange={(e) => onInputChange(e)} name='name' placeholder="name" />
+          
+                <input type="text" className="name one" onChange={(e) => onInputChange(e)} name='password' placeholder="Password" />
                 </>
                 
-)
-            }
-{/*{toggle && (
-  <div className="Form">
-  <VoiceInput changeOnEntityType={data.name} value={data.name} onChange={(e) => handleChange(e, "name")}
-    />
-    <VoiceInput
-    changeOnEntityType={data.email_address}
-    value={data.email_address}
-    onChange={(e) => handleChange(e, "name")}
-/>
-<VoiceInput
-            changeOnEntityType={data.password}
-            value={data.password}
-            onChange={(e) => handleChange(e, "name")}
-/>
-</div>
-
-
-)}*/}
                 <button className="login" onClick={() => signUpUser()}>Sign Up</button>
-               
-       
                 <p className="notRegistered last_one">
                 Already registered?{" "}
                 <button className="last" onClick={flip}>
