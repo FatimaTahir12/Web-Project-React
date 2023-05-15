@@ -1,19 +1,18 @@
 "use client";
 import React, { createContext, useState, useEffect } from 'react';
-import props from 'prop-types';
 
 //import {btnClicked }  from "../script"   
 import "../styles/style.css"
 import Navbar from '../components/navbar'
 
 import { togglePopUp, togglePopUp2 }  from "../script"  
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const ThemeContext = createContext(null);
 
 export default function Home(props) {
-  const {state} = useLocation();
-  const { user } = state; // Read values passed on state
+  // const {state} = useLocation();
+  const { username } = useParams(); // Read values passed on state
 
 
 
@@ -85,7 +84,7 @@ export default function Home(props) {
           alt=""
           className="img1"
         /> */}
-        <h1 className="one">{user.name}</h1>
+        <h1 className="one">{username}</h1>
       </div>
       <button className="settings btn" id="btn"  onClick={togglePopUp}>
       <span className="material-symbols-outlined">
