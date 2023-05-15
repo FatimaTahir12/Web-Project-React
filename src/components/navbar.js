@@ -51,7 +51,7 @@ add_box
       <span className="material-symbols-outlined md">
 logout
 </span>
-        <a href='/loginuser' style={{ color: 'inherit', textDecoration: 'inherit'}}>
+        <a href='/login' style={{ color: 'inherit', textDecoration: 'inherit'}}>
         <h3> Logout</h3>
         </a>
       </div>

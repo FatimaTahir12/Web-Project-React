@@ -27,7 +27,7 @@ function App() {
         <Route path="/" element={<Dashboard/>}/>
         <Route path="/addnew" element={<AddNew/>}/>
         <Route path="/monthly" element={<Monthly/>}/>
-        <Route path="/loginuser" element={<Login/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Route>
     </Routes>
     </FormProvider>
