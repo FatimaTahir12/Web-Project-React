@@ -14,11 +14,12 @@ body
 }
 .card
 {
-    width: 34rem;
-    height: 45rem;
+    width: 27rem;
+    height: 37rem;
     position: relative;
     margin: 50px auto;
-    top: -18px;
+    top: 36px;
+    left: -37px;
     font-family: tahoma;
     transform-style: preserve-3d;
     transition: all 1s ease-in-out;
@@ -155,7 +156,7 @@ h1{
     flex-direction: column;
     position: relative;
     top: 0rem;
-    left: 21%;
+    left: 6%;
     
 }
 
@@ -225,7 +226,7 @@ h1{
 }
 
 .field_one{
-    left: 161px;
+    left: 82px;
 }
 .crd{
     background-color: #05595B;
@@ -273,8 +274,8 @@ img{
     width: 111px;
     height: 46px;
     position: relative;
-    top: 35px;
-    left: 67px;
+    top: 10px;
+    left: 74px;
     border-radius: 12px;
     color: white;
     background-color: #062C30;
@@ -295,7 +296,7 @@ img{
 .notRegistered{
     position: relative;
     top: 116px;
-    left: -77px;
+    left: -19px;
 }
 
 .signup{
@@ -320,8 +321,8 @@ img{
 
 .last_one{
     position: relative;
-    left: -141px;
-    top: 72px;
+    left: -79px;
+    top: 55px;
 }
 
 .link_one{
@@ -359,6 +360,13 @@ img{
     z-index: 1;
 
 }
+
+.name:focus {
+    background: #F5F5F5;
+    box-shadow: inset 5px 5px 7px #b5b5b5,
+                inset -5px -5px 7px #ffffff;
+    color: #05595B;
+  }
 
 .Form label{
     width: 0rem !important;
