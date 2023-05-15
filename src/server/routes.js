@@ -168,7 +168,17 @@ app.post("/add-expense", async (req, res) => {
             expense_category: category,
             amount, // sanitize: convert email to lowercase
         });
+        
+        const tempgoal = await Goal.findOne({username: username, goal_category: category})
 
+        if(tempgoal == null) {
+           const goal = await Goal.create({
+            username,
+            goal_category:category,
+            amount: 50000
+           });
+           const user = await User.findOneAndUpdate({username}, {$push: {goals: goal}});
+        }
         const user = await User.findOneAndUpdate({username}, {$push: {expenses: expense}});
         
         if(user){
