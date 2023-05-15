@@ -45,6 +45,15 @@ add_box
         <h3> Add New</h3>
         </a>
       </div>
+      
+      <div className="stats row">
+      <span className="material-symbols-outlined md">
+add_box
+</span>
+        <a href='/editprofile' style={{ color: 'inherit', textDecoration: 'inherit'}}>
+        <h3> Edit Profile</h3>
+        </a>
+      </div>
 
       <div className="stats row logout">
         

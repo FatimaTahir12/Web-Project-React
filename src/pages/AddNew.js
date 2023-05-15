@@ -13,12 +13,23 @@ export default function Home() {
   const [newCategory, setCategory] = useState("");
   const [isOpen_2, setIsOpen_2] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState(-1);
+  const [editPriority, setEditPriority] = useState('');
+ const [category_2, setCategory_2] = useState("");
 
   function handleClick(event){
 
       setCategory(event.currentTarget.id);
-      event.button.disabled = true;
+
   }
+
+  const togglePopup2 = (e) => {
+    setIsOpen_2(!isOpen_2);
+    const isButton = e.target.nodeName === 'BUTTON';
+
+    if (!isButton) return;
+    handlePriorityChange();
+  };
 
   function showEntry(){
     togglePopUp();
@@ -63,12 +74,18 @@ export default function Home() {
     }
 }
 
-const handleEditAmount = (entry) => {
+const blaaahh = (index, entry) => {
+  setEditingIndex(index);
+  setCategory_2(entry);
+  setIsOpen_2(true);
+};
 
-  togglePopup_2();
- // alert(entry.price)
-
-}
+const handlePriorityChange = () => {
+  const newItemList = [...items];
+  newItemList[editingIndex].price = editPriority;
+  setItems(newItemList);
+  setIsOpen_2(false);
+};
 
 const togglePopup_2 = e => {
   setIsOpen(!isOpen);
@@ -147,7 +164,7 @@ const togglePopup_2 = e => {
 
        <div className="edit-delete">
        <button className="btn add" id=""  value={0}>
-       <span onClick={handleEditAmount(index)} className="material-symbols-outlined ">
+       <span onClick={() => { blaaahh(index, entry) }} className="material-symbols-outlined ">
 edit
 </span>
      
@@ -165,6 +182,20 @@ delete
          ))}
 
     </div>
+
+
+    {isOpen_2 && <Popup content={<>
+      
+      <div className='inputFields'>
+      <h2 className="h_2 heading-popup">Edit Amount</h2>
+       <h2 className="editCat">Category selected: {category_2.category}</h2>
+        <input id="input_2" value={editPriority} placeholder={category_2.price} onChange={(e) => setEditPriority(e.target.value)}/>
+        <button className="submit_2 btn addBtn" onClick={handlePriorityChange}>submit</button>
+        </div>
+      </>}
+      handleClose={togglePopup2}
+    />}
+
     <div className="popup" id="popup-1">
       <div className="overlay" />
       <div className="addBook">
@@ -296,7 +327,7 @@ add
     <div className="popup" id="popup-2">
       <div className="overlay" />
       <div className="addBook">
-        <div className="close-btn" onClick={togglePopup_2}>
+        <div className="close-btn">
           ×
         </div>
         <fieldset>

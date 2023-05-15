@@ -377,3 +377,7 @@ img{
     width: 0rem !important;
     height: 0rem !important;
 }
+
+input:valid{
+    color: #05595B;
+}
