@@ -20,7 +20,8 @@ export default function Home()
     });
 
     
-    const getUser = async() => {
+    const getUser = async(e) => {
+        e.preventDefault();
     try {
         const response = await axios.get('/user').then((res) => {
             console.log(res.data);
@@ -36,7 +37,7 @@ export default function Home()
 
     const editProfile = async(e) => {
         e.preventDefault();
-        getUser();
+        getUser(e);
         try {
             const response = await axios.post('/update-profile', {username: originalUser.username, new_name: newUser.new_name, new_password: newUser.new_password}).then((res) => {
                 console.log(res.data);
@@ -50,6 +51,7 @@ export default function Home()
     }
 
     const onValueChange = (e) => {
+        console.log(e.target.value);
         setNewUser({...newUser, [e.target.name]: e.target.value})
     }
 
@@ -76,8 +78,8 @@ export default function Home()
         <h2 className="editCat setTop">Password</h2>
         <input className='setTop-input' onChange={(e) => onValueChange(e)} name='password' value={newUser.new_password}/>
             </div>
-            <button className="btn addBtn setbtn" onClick={(e) => editProfile(e)}>Edit</button>
-        </div>
+                <button className="btn addBtn setbtn" onClick={(e) => editProfile(e)}>Edit</button>
+            </div>
         </>
     )
 }
