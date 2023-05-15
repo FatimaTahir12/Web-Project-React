@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard'
 import AddNew from './pages/AddNew'
 import Monthly from './pages/Monthly'
 import Login from './pages/Login'
+import EditProfile from './pages/Editprofile';
 import {Routes, Route, Outlet} from "react-router-dom";
 import {FormProvider, useForm} from "react-hook-form";
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/addnew" element={<AddNew/>}/>
         <Route path="/monthly" element={<Monthly/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/editprofile" element={<EditProfile/>}/>
       </Route>
     </Routes>
     </FormProvider>
