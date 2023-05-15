@@ -1,26 +1,44 @@
 "use client";
-import { togglePopUp, togglePopUp2 }  from "../script"  
+import { togglePopUp}  from "../script"  
 import "../styles/style.css"  
 import Navbar from '../components/navbar'
 import React, {useState, useEffect} from 'react';
 import Popup from '../components/popup';
-import { useFormContext } from "react-hook-form";
+
 
 export default function Home() {
 
   const[items, setItems] = useState([])
   const [newPrice, setPrice] = useState("");
+  const [newGoal, setNewGoal] = useState("");
+  const [goalIndex, setNewGoalIndex] = useState("");
   const [newCategory, setCategory] = useState("");
   const [isOpen_2, setIsOpen_2] = useState(false);
+  const [isOpen_3, setIsOpen_3] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editPriority, setEditPriority] = useState('');
- const [category_2, setCategory_2] = useState("");
+  const [category_2, setCategory_2] = useState("");
+  const [toggle, setToggle] = useState(true)
+
+{/**Rakeen key functions */}
+
+const postCategoriesAndPrice = () => {
+
+}
+
+const updateAmount = () => {
+
+}
+
+const updateGoal = () => {
+
+}
+
 
   function handleClick(event){
 
-      setCategory(event.currentTarget.id);
-
+    setCategory(event.currentTarget.id);
   }
 
   const togglePopup2 = (e) => {
@@ -28,12 +46,21 @@ export default function Home() {
     const isButton = e.target.nodeName === 'BUTTON';
 
     if (!isButton) return;
-    handlePriorityChange();
+    handleAmountChange();
+  };
+
+  const togglePopup3 = (e) => {
+    setIsOpen_3(!isOpen_3);
+    const isButton = e.target.nodeName === 'BUTTON';
+
+    if (!isButton) return;
+    handleAmountChange();
   };
 
   function showEntry(){
     togglePopUp();
     AddEntry();  
+    postCategoriesAndPrice();
   }
 
   function showEntry_2(){
@@ -47,24 +74,27 @@ export default function Home() {
     updatedList.splice(index, 1);
     setItems(updatedList);
   };
+
   const AddEntry = () => {
 
   const prevCategory  = items.findIndex(item => item.category === newCategory);
 
   if(prevCategory == -1){
-  if (newCategory.trim() !== "") {
-    setItems([
-      ...items,
-      {
-        price: newPrice,
-        category: newCategory,
-      },
-    ]);
-    setPrice("");
-    setCategory("");
-  }
 
-  } else{
+    if (newCategory.trim() !== "") {
+      setItems([
+        ...items,
+        {
+          price: newPrice,
+          category: newCategory,
+          goal: newGoal,
+        },
+      ]);
+      setPrice("0");
+      setCategory("");
+      setNewGoal("");
+    }
+  }else{
 
         const updatedList = [...items];
         const temp1 = parseFloat(updatedList[prevCategory].price);
@@ -74,17 +104,36 @@ export default function Home() {
     }
 }
 
+
 const blaaahh = (index, entry) => {
   setEditingIndex(index);
   setCategory_2(entry);
   setIsOpen_2(true);
 };
 
-const handlePriorityChange = () => {
+const addGoal = (index, entry) => {
+
+  setNewGoalIndex(index);
+  setNewGoal(entry);
+  setIsOpen_3(true);
+
+}
+
+const handleAmountChange = () => {
   const newItemList = [...items];
   newItemList[editingIndex].price = editPriority;
   setItems(newItemList);
   setIsOpen_2(false);
+  updateAmount();
+  
+};
+
+const handleGoalChange = () => {
+  const newItemList = [...items];
+  newItemList[goalIndex].goal = newGoal;
+  setItems(newItemList);
+  setIsOpen_3(false);
+  updateGoal(); 
 };
 
 const togglePopup_2 = e => {
@@ -94,34 +143,36 @@ const togglePopup_2 = e => {
 
   if(!isButton) 
     return
-//  getInputFromFunc();
+}
+
+const newPopUp = () =>{
+  togglePopUp();
+  setToggle(true);
 }
 
   let theme = '';
   if(localStorage.getItem("theme") == "light"){
       theme = "light";
   }
- else{
-  theme = "dark";
- }
+  else{
+     theme = "dark";
+  }
 
-    return (      
-        <>
-        <div className={`container-addNew ${theme}`}>
- <Navbar/>
-  <div className="todayTab">
-    <h2 className="todayH2">Today's Expenditures</h2>
-    
-      <button
-        className="btn add "
-        id="show-login"
-        onClick={togglePopUp}
-        value={0}
-      >
-
-      <span className="material-symbols-outlined">
-      add
-      </span>
+  return (      
+    <>
+      <div className={`container-addNew ${theme}`}>
+      <Navbar/>
+      <div className="todayTab">
+        <h2 className="todayH2">Today's Expenditures</h2>   
+        <button
+          className="btn add "
+          id="show-login"
+          onClick={newPopUp}
+          value={0}
+        >
+          <span className="material-symbols-outlined">
+          add
+          </span>
       </button>
 
     <div className="added">
@@ -150,58 +201,92 @@ const togglePopup_2 = e => {
       {items.map((entry, index) => (
          <div key={index}>
 
-<div className="whole-row"> 
-         <div className="bar oops">
-         <div className="bar-color clr3" style={{ width: `${50}%` }}></div>
-         <img
-           className="img2"
-           src="https://cdn-icons-png.flaticon.com/256/9616/9616987.png"
-           alt=""
-         />
-         <p className="name1 ">{entry.category}</p>
-         <p className="money">${entry.price}</p>
-       </div>
+          <div className="whole-row"> 
+            <div className="bar oops">
+            <div className="bar-color clr3" style={{ width: `${50}%` }}></div>
+            <img
+              className="img2"
+              src="https://cdn-icons-png.flaticon.com/256/9616/9616987.png"
+              alt=""
+            />
+            <p className="name1 ">{entry.category}</p>
+            <p className="money">${entry.price} / ${entry.goal}</p>
+          </div>
 
-       <div className="edit-delete">
-       <button className="btn add" id=""  value={0}>
-       <span onClick={() => { blaaahh(index, entry) }} className="material-symbols-outlined ">
-edit
-</span>
-     
-      </button>
+          <div className="edit-delete">
 
-      <button className="btn add" id="" onClick={() => handleDelete(index)} value={0}>
-      <span className="material-symbols-outlined">
-delete
-</span>
-      </button>
-      </div>
-       </div>
+            <button className="btn add" id=""  value={0}>
+                <span onClick={() => { blaaahh(index, entry) }} className="material-symbols-outlined ">
+                edit
+                </span> 
+            </button>
+
+            <button className="btn add" id="" onClick={() => handleDelete(index)} value={0}>
+              <span className="material-symbols-outlined">
+              delete
+              </span>
+            </button>
+
+            <button className="btn add" id=""  value={0} onClick={() => { addGoal(index, entry) }}>
+              <span class="material-symbols-outlined">
+              flag
+              </span>
+            </button>
+          </div>
+        </div>
        </div>
 
          ))}
 
     </div>
 
-
     {isOpen_2 && <Popup content={<>
       
       <div className='inputFields'>
-      <h2 className="h_2 heading-popup">Edit Amount</h2>
-       <h2 className="editCat">Category selected: {category_2.category}</h2>
+        <h2 className="h_2 heading-popup">Edit Amount</h2>
+        <h2 className="editCat">Category selected: {category_2.category}</h2>
         <input id="input_2" value={editPriority} placeholder={category_2.price} onChange={(e) => setEditPriority(e.target.value)}/>
-        <button className="submit_2 btn addBtn" onClick={handlePriorityChange}>submit</button>
-        </div>
-      </>}
-      handleClose={togglePopup2}
+        <button className="submit_2 btn addBtn" onClick={handleAmountChange}>submit</button>
+      </div>
+    </>}
+    handleClose={togglePopup2}
     />}
+
+    {isOpen_3 && <Popup content={<>
+      
+      <div className='inputFields'>
+        <h2 className="h_2 heading-popup">Add Goal</h2>
+        <h2 className="editCat">Category selected: {category_2.category}</h2>
+          <input id="input_2"
+              onChange={(e) => setNewGoal(e.target.value)}/>
+          <button className="submit_2 btn addBtn" onClick={handleGoalChange}>submit</button>
+      </div>
+
+      </>}
+      handleClose={togglePopup3}
+    />}
+
 
     <div className="popup" id="popup-1">
       <div className="overlay" />
+         
       <div className="addBook">
         <div className="close-btn" onClick={togglePopUp}>
           ×
         </div>
+        {!toggle && (
+          <>
+        <h3 className="heading-popup">New Category</h3>
+        <input id="input_2" placeholder="Enter a new category" onChange={(e) => setCategory(e.target.value)}/>
+        <button className="btn addBtn submitcat" id="submit" type="submit" onClick={showEntry}>
+          Submit
+        </button>
+        <button className="btn addBtn goback" id="submit" type="submit" onClick={() => {setToggle(true)}}>
+          Go back
+        </button>
+        </>
+      )}
+        {toggle && (
         <fieldset>
           <input
           name='newPrice'
@@ -213,7 +298,7 @@ delete
           />
           <br/>
           <h3 className="heading-popup">Pick a category</h3>
-       
+          
           <div className="categories-popup" id="style-2">
             <button className="clothes-div item btn" id="Clothes" onClick={handleClick}>
               <div className="colorplate">
@@ -310,20 +395,21 @@ delete
                 />
                 <p className="item-desc">Beverages</p>
               </div></button>
-            <button className="btn add addNew" id="show-login" onClick={togglePopUp} value={0} >
-            <span className="material-symbols-outlined">
-add
-</span>
-            </button>
-          </div>
-          
+              <button className="btn add addNew" id="show-login" onClick={() => setToggle(!toggle)}  value={0} >
+                <span className="material-symbols-outlined">
+                add
+                </span>
+              </button>
+          </div>        
         </fieldset>
+        )}
+        {toggle && (
         <button className="btn addBtn" id="submit" type="submit" onClick={showEntry}>
           Submit
         </button>
-      </div>
+        )}    
+      </div>   
     </div>
-
     <div className="popup" id="popup-2">
       <div className="overlay" />
       <div className="addBook">

@@ -154,7 +154,7 @@ export default function Home() {
             value={login.username} placeholder="Username" autoComplete="new-password" />
                 <input type="password" className="pass one"onChange={(e)=> onValueChange(e)}
             name="password"  value={login.password}  placeholder="Password" autoComplete="new-password"/>
-                <button className="login" onClick={() => loginUser()}>Log in</button>             
+                <button className="login" >Log in</button>             
                 <p className="notRegistered">
                 Not registered? <span onClick={flip}>Create an account</span>
                 </p>
