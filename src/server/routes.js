@@ -126,7 +126,7 @@ try {
     encryptedPassword = await bcrypt.hash(new_password, 10);
 
     // Create user in our database
-    const updateduser = await User.updateOne({email: email},{
+    const updateduser = await User.updateOne({username: username},{
       name: new_name,
       username, // sanitize: convert email to lowercase
       password: encryptedPassword,
