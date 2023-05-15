@@ -742,6 +742,7 @@ input{
     left: 4px;
     font-size: 25px;
     color: #E2D784;
+    background: none !important;
 }
 
 @media (max-width: 1000px){
@@ -990,4 +991,20 @@ input:valid{
     width: 138px;
     height: 57px;
     font-size: 25px;
+  }
+
+  .toggle-pane{
+    z-index: 1;
+  }
+
+  .goback{
+    position: relative;
+    top: 0px;
+    left: 0px;
+  }
+
+  .submitcat{
+    position: relative;
+    top: 0px;
+    left: 0px;
   }

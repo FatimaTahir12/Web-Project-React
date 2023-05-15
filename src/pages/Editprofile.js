@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-
 export default function Home() 
 {
     const { username } = useParams();
@@ -59,8 +58,19 @@ export default function Home()
         setNewUser({...newUser, [e.target.name]: e.target.value})
     }
 
-    let theme = '';
+    const [user, setUser] = useState(initialValue);
+    const { name, password } = user;
+    
+    const editProfile = async() => {
+        const response = await editUser(id, user);
+        navigate('/all');
+    }
+    
+    const onValueChange = (e) => {
+        setUser({...user, [e.target.name]: e.target.value})
+    }
 
+    let theme = '';
 
     if(localStorage.getItem("theme") == "light"){
         theme = "light";
@@ -71,6 +81,7 @@ export default function Home()
 
     return(
         <>
+
             <div className="container-addNew">
                 <Navbar/>
 
