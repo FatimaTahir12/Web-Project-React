@@ -1,8 +1,8 @@
 "use client";
-
+import props from 'prop-types';
 import { login_signUp, flip }  from "../script"   
 import "../styles/style(signUp).css"
-
+import { useNavigation, useNavigate, useNavigationType } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useSpeechContext } from "@speechly/react-client";
 import {
@@ -12,35 +12,34 @@ import {
   } from "@speechly/react-ui";
   import { VoiceInput, VoiceDatePicker } from "@speechly/react-voice-forms";
 import "@speechly/react-voice-forms/css/theme/mui.css";
+import axios from "axios";
 
 
-const signupInitialValues = {
-  name: '',
-  username: '',
-  password: '',
-};
-
-const loginInitialValues = {
-  username: '',
-  password: '',
-};
 
 export default function Home() {
 
     const { segment } = useSpeechContext();
    
+    const navigate = useNavigate();
     
-  const handleChange = (e, key) => setData({ ...data, [key]: e.target.value });
   const [toggle, setToggle] = useState(false);
-  const [login, setLogin] = useState(loginInitialValues);
-  const [signup, setSignup] = useState(signupInitialValues);
+  const [loginData, setLogin] = useState({
+    username: '',
+    password: '',
+  });
 
-  const onInputChange = (e) => {
-    setSignup({ ...signup, [e.target.name]: e.target.value });
+  const [signupData, setSignup] = useState({
+    name: '',
+    username: '',
+    password: '',
+  });
+
+  const onInputChange = (event) => {
+    setSignup({ ...signupData, [event.target.name]: event.target.value });
   };
-
-  const onValueChange = (e) => {
-    setLogin({ ...login, [e.target.name]: e.target.value });
+  
+  const onValueChange = (event) => {
+    setLogin({ ...loginData, [event.target.name]: event.target.value });
   };
 
   // const handleRegister = async (event) => {
@@ -66,31 +65,26 @@ export default function Home() {
   // };
 
 
-  useEffect(() => {
-    if (segment) {
-      if (segment.entities) {
-        segment.entities.forEach((entity) => {
-          console.log(entity.type, entity.value);
-          setData((data) => ({ ...data, [entity.type]: entity.value }));
-        });
-      }
-      if (segment.isFinal) {
-        if (segment.entities) {
-          segment.entities.forEach((entity) => {
-            console.log("✅", entity.type, entity.value);
-            setData((data) => ({ ...data, [entity.type]: entity.value }));
-          });
-        }
-      }
-    }
-  }, [segment]);
+  // useEffect(() => {
+  //   if (segment) {
+  //     if (segment.entities) {
+  //       segment.entities.forEach((entity) => {
+  //         console.log(entity.type, entity.value);
+  //         setData((data) => ({ ...data, [entity.type]: entity.value }));
+  //       });
+  //     }
+  //     if (segment.isFinal) {
+  //       if (segment.entities) {
+  //         segment.entities.forEach((entity) => {
+  //           console.log("✅", entity.type, entity.value);
+  //           setData((data) => ({ ...data, [entity.type]: entity.value }));
+  //         });
+  //       }
+  //     }
+  //   }
+  // }, [segment]);
 
 
-  const dum =
-  {
-    username: "",
-    password: ""
-  }
 
   // const logInUser = async () => {
 
@@ -109,31 +103,31 @@ export default function Home() {
   const logInUser = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/login', {
-        "username": "hussainarslan",
-        "password": "hussain"
+      const response = await axios.post('/login', loginData).then((res) => { 
+        console.log(res.data);
+        if (res.status === 200) {
+          console.log("success"); 
+          this.props.router.push({
+            pathname: '/',
+            state: { user: loginData }
+          })
+          navigate('/');
+        }
       });
-      console.log(response);
-      if (response.data.status === "success") {
-        console.log("success");
-      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const signUpUser = async () => {
-    dum.name = 'Test';
-    dum.username = 'Test';
-    dum.password = 'Test';
-
-
+  const signUpUser = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/register', dum);
-      console.log(response);
-      if (response.data.status === "success") {
-        console.log("success"); 
-      }
+      const response = await axios.post('/register', signupData).then((res) => {
+        console.log(res.data);
+        if (res.status === 200) {
+          console.log("success");
+        }
+      });
     } catch (error) {
       console.log(error);
     }
@@ -151,10 +145,10 @@ export default function Home() {
             
                 <input type="text" className="name one" onChange={(e)=> onValueChange(e)}
               name="username"
-            value={login.username} placeholder="Username" autoComplete="new-password" />
-                <input type="password" className="pass one"onChange={(e)=> onValueChange(e)}
-            name="password"  value={login.password}  placeholder="Password" autoComplete="new-password"/>
-                <button className="login" onClick={() => loginUser()}>Log in</button>             
+            value={loginData.username} placeholder="Username" autoComplete="new-password" />
+                <input type="password" className="pass one" onChange={(e)=> onValueChange(e)}
+            name="password"  value={loginData.password}  placeholder="Password" autoComplete="new-password"/>
+                <button className="login" onClick={(e) => logInUser(e)}>Log in</button>             
                 <p className="notRegistered">
                 Not registered? <span onClick={flip}>Create an account</span>
                 </p>
@@ -176,7 +170,7 @@ export default function Home() {
                 <input type="text" className="name one" onChange={(e) => onInputChange(e)} name='password' placeholder="Password" />
                 </>
                 
-                <button className="login" onClick={() => signUpUser()}>Sign Up</button>
+                <button className="login" onClick={(e) => signUpUser(e)}>Sign Up</button>
                 <p className="notRegistered last_one">
                 Already registered?{" "}
                 <button className="last" onClick={flip}>
