@@ -333,4 +333,15 @@ app.get("/users", async (req, res) => {
   }
 });
 
+app.post("/user", async (req, res) => {
+  try {
+    const {username} = req.body;
+    const filter = {username: username}
+    const user = await User.findOne(filter);
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = app;
