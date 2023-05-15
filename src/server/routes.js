@@ -100,10 +100,10 @@ app.post("/update-profile", async (req, res) => {
   // Our login logic starts here
 try {
   // Get user input
-  const { username, password, new_name, new_password } = req.body;
+  const { username, new_name, new_password } = req.body;
 
   // Validate user input
-  if (!(username && password && new_name && new_password)) {
+  if (!(username && new_name && new_password)) {
     res.status(400).send("All input is required");
   }
   // Validate if user exist in our database
@@ -119,14 +119,14 @@ try {
   // save user token
   user.token = token;
 
-  if (user && (await bcrypt.compare(password, user.password))) {
+  if (user) {
     // Create token
     
 
     encryptedPassword = await bcrypt.hash(new_password, 10);
 
     // Create user in our database
-    const updateduser = await User.updateOne({email: email},{
+    const updateduser = await User.updateOne({username: username},{
       name: new_name,
       username, // sanitize: convert email to lowercase
       password: encryptedPassword,
@@ -168,7 +168,17 @@ app.post("/add-expense", async (req, res) => {
             expense_category: category,
             amount, // sanitize: convert email to lowercase
         });
+        
+        const tempgoal = await Goal.findOne({username: username, goal_category: category})
 
+        if(tempgoal == null) {
+           const goal = await Goal.create({
+            username,
+            goal_category:category,
+            amount: 50000
+           });
+           const user = await User.findOneAndUpdate({username}, {$push: {goals: goal}});
+        }
         const user = await User.findOneAndUpdate({username}, {$push: {expenses: expense}});
         
         if(user){
@@ -318,6 +328,17 @@ app.get("/users", async (req, res) => {
     const filter = {}
     const users = await User.find(filter).populate("expenses").populate("goals");
     res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.post("/user", async (req, res) => {
+  try {
+    const {username} = req.body;
+    const filter = {username: username}
+    const user = await User.findOne(filter);
+    res.status(200).json(user);
   } catch (err) {
     console.log(err);
   }

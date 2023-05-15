@@ -24,13 +24,14 @@ function App() {
     
    <FormProvider{...methods}>
     <Routes>
-      <Route path="/" element={<Layout/>}>
-        <Route path="/" element={<Dashboard/>}/>
-        <Route path="/addnew" element={<AddNew/>}/>
-        <Route path="/monthly" element={<Monthly/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/editprofile" element={<EditProfile/>}/>
-      </Route>
+      <Route path="/" element={<Login/>}/>
+      {/* <Route path="/:username" element={<Dashboard/>}/> */}
+      <Route path="/dashboard/:username" element={<Dashboard/>}/>
+      <Route path="/addnew" element={<AddNew/>}/>
+      <Route path="/monthly" element={<Monthly/>}/>
+      <Route path="/loginuser" element={<Login/>}/>
+      <Route name="editprofile" path="/editprofile/:username" element={<EditProfile/>}/>
+      
     </Routes>
     </FormProvider>
   );
