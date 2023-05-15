@@ -100,10 +100,10 @@ app.post("/update-profile", async (req, res) => {
   // Our login logic starts here
 try {
   // Get user input
-  const { username, password, name, new_password } = req.body;
+  const { username, password, new_name, new_password } = req.body;
 
   // Validate user input
-  if (!(username && password && name && new_password)) {
+  if (!(username && password && new_name && new_password)) {
     res.status(400).send("All input is required");
   }
   // Validate if user exist in our database
@@ -127,8 +127,8 @@ try {
 
     // Create user in our database
     const updateduser = await User.updateOne({email: email},{
-      name,
-      username: username.toLowerCase(), // sanitize: convert email to lowercase
+      name: new_name,
+      username, // sanitize: convert email to lowercase
       password: encryptedPassword,
     });
 
