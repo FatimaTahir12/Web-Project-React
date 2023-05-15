@@ -13,7 +13,6 @@ import {
   import { VoiceInput, VoiceDatePicker } from "@speechly/react-voice-forms";
 import "@speechly/react-voice-forms/css/theme/mui.css";
 
-import { API } from "../service/api";
 
 export default function Home() {
 
@@ -49,13 +48,6 @@ export default function Home() {
   //   }
   // };
 
-  const signUpUser = async () => {
-    let response = await API.signUpUser(data.name, data.username, data.password);
-  }
-
-  const loginUser = async () => {
-    let response = await API.loginUser(data.username, data.password);
-  }
 
   useEffect(() => {
     if (segment) {
