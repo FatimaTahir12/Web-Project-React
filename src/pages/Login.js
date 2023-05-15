@@ -2,7 +2,6 @@
 
 import { login_signUp, flip }  from "../script"   
 import "../styles/style(signUp).css"
-import axios from "axios";
 
 import { useEffect, useState } from "react";
 import { useSpeechContext } from "@speechly/react-client";
@@ -22,7 +21,6 @@ export default function Home() {
     name: "",
     username: "",
     password: ""
-
   });
     
   const handleChange = (e, key) => setData({ ...data, [key]: e.target.value });
@@ -69,6 +67,7 @@ export default function Home() {
       }
     }
   }, [segment]);
+
 
   const dum =
   {
@@ -143,7 +142,9 @@ export default function Home() {
                 Forgot Password?
                 </a>
 
+
                 <button className="login" onClick={(e) => logInUser(e)}>Log in</button>
+
 
                 <hr />
                 <div className="or">OR</div>
