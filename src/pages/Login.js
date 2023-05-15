@@ -18,9 +18,9 @@ import axios from "axios";
 
 export default function Home() {
 
-    const { segment } = useSpeechContext();
-   
-    const navigate = useNavigate();
+  const { segment } = useSpeechContext();
+  
+  const navigate = useNavigate();
     
   const [toggle, setToggle] = useState(false);
   const [loginData, setLogin] = useState({
@@ -107,11 +107,7 @@ export default function Home() {
         console.log(res.data);
         if (res.status === 200) {
           console.log("success"); 
-          this.props.router.push({
-            pathname: '/',
-            state: { user: loginData }
-          })
-          navigate('/');
+          navigate(`/dashboard/${loginData.username}`);
         }
       });
     } catch (error) {
