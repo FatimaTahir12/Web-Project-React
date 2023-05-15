@@ -90,9 +90,10 @@ export default function Home() {
   //   }
   // };
 
-  const logInUser = async () => {
+  const logInUser = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', {
+      const response = await axios.post('/login', {
         "username": "hussainarslan",
         "password": "hussain"
       });
@@ -142,7 +143,7 @@ export default function Home() {
                 Forgot Password?
                 </a>
 
-                <button className="login" onClick={() => logInUser()}>Log in</button>
+                <button className="login" onClick={(e) => logInUser(e)}>Log in</button>
 
                 <hr />
                 <div className="or">OR</div>
