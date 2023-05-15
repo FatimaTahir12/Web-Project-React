@@ -13,7 +13,6 @@ import {
   import { VoiceInput, VoiceDatePicker } from "@speechly/react-voice-forms";
 import "@speechly/react-voice-forms/css/theme/mui.css";
 
-import { API } from "../service/api";
 
 const signupInitialValues = {
   name: '',
@@ -66,13 +65,6 @@ export default function Home() {
   //   }
   // };
 
-  const signUpUser = async () => {
-    let response = await API.signUpUser(data.name, data.username, data.password);
-  }
-
-  const loginUser = async () => {
-    let response = await API.loginUser(data.username, data.password);
-  }
 
   useEffect(() => {
     if (segment) {
@@ -92,6 +84,60 @@ export default function Home() {
       }
     }
   }, [segment]);
+
+
+  const dum =
+  {
+    username: "",
+    password: ""
+  }
+
+  // const logInUser = async () => {
+
+    
+  //   try {
+  //     const response = await axios.post('http://localhost:5000/login', {"username": "hussainarslan", "password": "hussain"});
+  //     console.log(response);
+  //     if (response.data.status === "success") {
+  //       console.log("success");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
+  const logInUser = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/login', {
+        "username": "hussainarslan",
+        "password": "hussain"
+      });
+      console.log(response);
+      if (response.data.status === "success") {
+        console.log("success");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const signUpUser = async () => {
+    dum.name = 'Test';
+    dum.username = 'Test';
+    dum.password = 'Test';
+
+
+    try {
+      const response = await axios.post('http://localhost:5000/register', dum);
+      console.log(response);
+      if (response.data.status === "success") {
+        console.log("success"); 
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
     return (
 
