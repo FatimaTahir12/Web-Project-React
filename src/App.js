@@ -30,7 +30,7 @@ function App() {
       <Route path="/addnew" element={<AddNew/>}/>
       <Route path="/monthly" element={<Monthly/>}/>
       <Route path="/loginuser" element={<Login/>}/>
-      <Route path="/editprofile" element={<EditProfile/>}/>
+      <Route name="editprofile" path="/editprofile/:username" element={<EditProfile/>}/>
       
     </Routes>
     </FormProvider>
