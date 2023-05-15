@@ -67,20 +67,21 @@ export default function Home() {
     theme = "dark";
    }
 
-    // return (
-    //     <>
-    //      <div className={container-addNew ${theme}}>
-    //     <Navbar/>
+return(
+<>
+     <div className="container-addNew">
+    <Navbar/>
 
-    //     <h2 className="todayH2">Edit Profile</h2>
-    //     <div className='edit-profile-inputs'>
+    <h2 className="todayH2">Edit Profile</h2>
+    <div className='edit-profile-inputs'>
 
-    //        <h2 className="editCat setTop">Full Name</h2>
-    //        <input className='setTop-input' onChange={(e) => onValueChange(e)} name='name' value={name}/>
-    //        <h2 className="editCat setTop">Password</h2>
-    //        <input className='setTop-input' onChange={(e) => onValueChange(e)} name='password' value={password}/>
-    //         </div>
-    //         <button className="btn addBtn setbtn" onClick={(e) => editProfile(e)}>Edit</button>
-    //     </>
-    // )
+       <h2 className="editCat setTop">Full Name</h2>
+       <input className='setTop-input' onChange={(e) => onValueChange(e)} name='name' value={name}/>
+       <h2 className="editCat setTop">Password</h2>
+       <input className='setTop-input' onChange={(e) => onValueChange(e)} name='password' value={password}/>
+        </div>
+        <button className="btn addBtn setbtn" onClick={() => editProfile()}>Edit</button>
+    </div>
+    </>
+)
 }
