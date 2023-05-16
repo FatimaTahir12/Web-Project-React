@@ -53,13 +53,10 @@ export default function Home(props) {
       if (storedTheme) {
         setTheme(storedTheme);
       }
+      fetchRandomWord();
     }, []);
 
     const [word, setWord] = useState('');
-
-    useEffect(() => {
-      fetchRandomWord();
-    }, []);
 
     const fetchRandomWord = async () => {
       try {
@@ -132,7 +129,7 @@ export default function Home(props) {
         </div>
       </div>
       <div className="accounts" id="accounts">
-        <h1 className="headings">Word of the Day</h1>
+        <h1 className="headings">Word of the Day!</h1>
         <div className="word" style={{width:"50%", height:"50%"}}>
           <h1 className="word-heading" style={{color: "brown"}}>{word}</h1>
         </div>
