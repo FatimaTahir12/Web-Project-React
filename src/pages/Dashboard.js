@@ -74,9 +74,20 @@ export default function Home(props) {
       if (storedTheme) {
         setTheme(storedTheme);
       }
+      fetchRandomWord();
     }, []);
 
+    const [word, setWord] = useState('');
 
+    const fetchRandomWord = async () => {
+      try {
+        const response = await axios.get('https://random-word-api.vercel.app/api?words=1');
+        const randomWord = response.data[0];
+        setWord(randomWord);
+      } catch (error) {
+        console.error('Error fetching random word:', error);
+      }
+    };
     
     function toggleTheme() {
       const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -140,7 +151,10 @@ export default function Home(props) {
         </div>
       </div>
       <div className="accounts" id="accounts">
-        <h1 className="headings">Other Accounts</h1>
+        <h1 className="headings">Word of the Day!</h1>
+        <div className="word" style={{width:"50%", height:"50%"}}>
+          <h1 className="word-heading" style={{color: "brown"}}>{word}</h1>
+        </div>
       </div>
     </div>
 
