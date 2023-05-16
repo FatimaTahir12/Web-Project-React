@@ -6,6 +6,8 @@ import React, {useState, useEffect} from 'react';
 import Popup from '../components/popup';
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { get } from "mongoose";
+import { use } from "../server/routes";
 
 export default function Home() {
   const { username } = useParams();
@@ -21,12 +23,13 @@ export default function Home() {
   const [editPriority, setEditPriority] = useState('');
   const [goalCategory, setGoalCategory] = useState("");
   const [category_2, setCategory_2] = useState("");
-  const [toggle, setToggle] = useState(true)
+  const [toggle, setToggle] = useState(true);
+  const [list, setList] = useState([]);
 
 {/**Rakeen key functions */}
 
 useEffect(() => {
-  updates();
+  updateAddNew();
 }, []);
 
 const postCategoriesAndPrice = () => {
@@ -45,7 +48,7 @@ const updateGoal = async () => {
     const response = await axios.post('/add-goal', {username: username, amount: newGoal, category: goalCategory.category }).then((res) => { 
       console.log(res.data);
       console.log(res.status);
-      if (res.status === 200) {
+      if (res.status === 200 || res.status === 201) {
         console.log("success"); 
       }
     });
@@ -55,22 +58,25 @@ const updateGoal = async () => {
 }
 
 
-
-const updates = async () => {
+//username, category, expnse_amount, goal_amount
+const updateAddNew = async () => {
   try {
     console.log(username);
-    const response = await axios.post('/updates', {username: username}).then((res) => {
-      console.log(res.data);
-      if (res.status === 200) {
-        console.log("success");
-      }
-    });
+    const response = await axios.post('/updates', { username: username });
+    if (response.status === 200) {
+      const newList = response.data.map((item) => ({
+        username: item.username,
+        category: item.category,
+        expense_amount: item.expense_amount,
+        goal_amount: item.goal_amount,
+      }));
+      setList((prevList) => [...prevList, ...newList]);
+      console.log("success");
+    }
   } catch (error) {
     console.log(error);
   }
-}
-
-
+};
 
   function handleClick(event){
 
@@ -214,7 +220,7 @@ const newPopUp = () =>{
 
   return (      
     <>
-      <div className={`container-addNew ${theme}`}>
+      <div className={`container-addNew ${theme}`} >
       <Navbar username={username}/>
       <div className="todayTab">
         <h2 className="todayH2">Today's Expenditures</h2>   
