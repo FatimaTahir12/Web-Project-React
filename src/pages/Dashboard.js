@@ -103,10 +103,10 @@ export default function Home(props) {
   <Navbar  username={username}/>
     <div className="Main">
       <div className="recent" id="recent">
-        <h1 className="headings ">Recent Transactions</h1>
+        <h1 className="headings ">Notification</h1>
       </div>
       <div className="monthly" id="monthly">
-        <h1 className="headings">Monthly Details</h1>
+        <h1 className="headings">Recent Transactions</h1>
         
       </div>
     </div>
