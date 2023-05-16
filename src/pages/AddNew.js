@@ -25,6 +25,10 @@ export default function Home() {
 
 {/**Rakeen key functions */}
 
+useEffect(() => {
+  updates();
+}, []);
+
 const postCategoriesAndPrice = () => {
 
 }
@@ -49,6 +53,23 @@ const updateGoal = async () => {
     console.log(error);
   }
 }
+
+
+
+const updates = async () => {
+  try {
+    console.log(username);
+    const response = await axios.post('/updates', {username: username}).then((res) => {
+      console.log(res.data);
+      if (res.status === 200) {
+        console.log("success");
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 
   function handleClick(event){
