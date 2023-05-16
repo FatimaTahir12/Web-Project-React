@@ -168,22 +168,24 @@ app.post("/add-expense", async (req, res) => {
             expense_category: category,
             amount, // sanitize: convert email to lowercase
         });
-        
-        const tempgoal = await Goal.findOne({username: username, goal_category: category})
-
-        if(tempgoal == null) {
-           const goal = await Goal.create({
-            username,
-            goal_category:category,
-            amount: 50000
-           });
-           const user = await User.findOneAndUpdate({username}, {$push: {goals: goal}});
-        }
         const user = await User.findOneAndUpdate({username}, {$push: {expenses: expense}});
+
+        // const tempgoal = await Goal.findOne({username: username, goal_category: category})
+
+        // if(tempgoal === null) {
+        //   const today = new Date()
+        //    const goal = await Goal.create({
+        //     username,
+        //     goal_category:category,
+        //     amount: 50000,
+        //     goal_date: today
+        //    });
+        //    const user = await User.findOneAndUpdate({username}, {$push: {goals: goal}});
+        // }
+        
         
         if(user){
-          // return new item
-          res.status(200).json(expense);
+          res.status(200).send(expense);
         }
         else {
           res.status(400).send("Invalid user")
@@ -304,7 +306,7 @@ app.post("/goals", async (req, res) => {
     const {username} = req.body;
     const filter = {username: username}
     const goals = await Goal.find(filter);
-    res.status(200).json(goals);
+    res.status(200).send(goals);
   } catch (err) {
     console.log(err);
   }
@@ -315,7 +317,7 @@ app.post("/expenses", async (req, res) => {
     const {username} = req.body;
     const filter = {username: username}
     const expenses = await Expense.find(filter);
-    res.status(200).json(expenses);
+    res.status(200).send(expenses);
   } catch (err) {
     console.log(err);
   }
@@ -327,7 +329,7 @@ app.get("/users", async (req, res) => {
   try {
     const filter = {}
     const users = await User.find(filter).populate("expenses").populate("goals");
-    res.status(200).json(users);
+    res.status(200).send(users);
   } catch (err) {
     console.log(err);
   }
