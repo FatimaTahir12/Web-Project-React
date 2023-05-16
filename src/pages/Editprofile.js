@@ -71,7 +71,7 @@ export default function Home()
     return(
         <>
 
-            <div className="container-addNew">
+            <div className={`container-addNew ${theme}`}>
                 <Navbar username={username}/>
 
                 <h2 className="todayH2">Edit Profile</h2>

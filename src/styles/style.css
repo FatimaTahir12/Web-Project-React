@@ -37,6 +37,14 @@ body{
     background-color: var(--background-color);
 }
 
+.nameplate{
+  background: transparent !important;
+}
+
+h1{
+  background: transparent !important;
+}
+
 .container{
     height: 100vh;
     display:grid;
@@ -296,6 +304,7 @@ input:focus{
     border-radius: 15px;
     background: var(--background-color);
     box-shadow:  var(--box-shadow);
+    cursor: pointer;
 }
 
 .material-symbols-outlined:hover {
