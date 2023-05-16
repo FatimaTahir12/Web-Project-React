@@ -215,8 +215,6 @@ app.post("/add-goal", async (req, res) => {
   try {
       const {username, category, amount} = req.body;
 
-      amount = parseInt(amount);
-
       if (!(username && category && amount)) {
         res.status(400).send("All input is required");
       }
@@ -261,26 +259,27 @@ app.post("/add-goal", async (req, res) => {
   }
 });
 
-app.post("/update-goal", async (req, res) => {
-  try {
-    const {username, category, amount} = req.body;
+// app.post("/update-goal", async (req, res) => {
+//   try {
+//     const {username, category, amount} = req.body;
 
-    const goal = await Goal.findOne({username:username, goal_category: category});
-    const today = new Date();
+//     const goal = await Goal.findOne({username:username, goal_category: category});
+//     const today = new Date();
 
-    const update = {goal_date: today, amount: amount};
-    await goal.updateOne(update);
+//     const update = {goal_date: today, amount: amount};
+//     await goal.updateOne(update);
     
-    const expense = await Expense.findOne({username:username, expense_category: category});
+//     const expense = await Expense.findOne({username:username, expense_category: category});
 
-    const expenseUpdate = {amount: 0};
-    await expense.updateOne(expenseUpdate);
-    res.status(200).send("Goal Updated");
-  }
-  catch (err) {
-    console.log(err);
-  }
-});
+//     const expenseUpdate = {amount: 0};
+//     await expense.updateOne(expenseUpdate);
+//     res.status(200).send("Goal Updated");
+//   }
+//   catch (err) {
+//     console.log(err);
+//   }
+// });
+
 app.post("/updates", async (req, res) => {
   try {
     const {username} = req.body;

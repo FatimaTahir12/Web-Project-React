@@ -39,7 +39,6 @@ const updateGoal = async () => {
     console.log(newGoal);
     console.log(goalCategory.category);
     const response = await axios.post('/add-goal', {username: username, amount: newGoal, category: goalCategory.category }).then((res) => { 
-      console.log(response.data);
       console.log(res.data);
       console.log(res.status);
       if (res.status === 200) {
