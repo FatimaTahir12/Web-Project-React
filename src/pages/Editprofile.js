@@ -37,7 +37,6 @@ export default function Home()
 
     const editProfile = async(e) => {
         e.preventDefault();
-        e.preventDefault()
         // getUser();
         try {
             console.log(newUser.username)
@@ -58,17 +57,7 @@ export default function Home()
         setNewUser({...newUser, [e.target.name]: e.target.value})
     }
 
-    const [user, setUser] = useState(initialValue);
-    const { name, password } = user;
-    
-    const editProfile = async() => {
-        const response = await editUser(id, user);
-        navigate('/all');
-    }
-    
-    const onValueChange = (e) => {
-        setUser({...user, [e.target.name]: e.target.value})
-    }
+
 
     let theme = '';
 
