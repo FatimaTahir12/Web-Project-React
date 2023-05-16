@@ -7,7 +7,7 @@ import Navbar from '../components/navbar'
 
 import { togglePopUp, togglePopUp2 }  from "../script"  
 import { useLocation, useParams } from 'react-router-dom';
-
+import PieChart from '../components/PieChart';
 export const ThemeContext = createContext(null);
 
 export default function Home(props) {
@@ -107,11 +107,15 @@ export default function Home(props) {
       </div>
       <div className="monthly" id="monthly">
         <h1 className="headings">Monthly Details</h1>
+        
       </div>
     </div>
     <div className="Aside">
       <div className="budget" id="budget">
         <h1 className="headings">Current Spendings</h1>
+        <div style={{position:"relative", width:"250px", height:"300px", margin:"auto", paddingTop:"10%"}}>
+          <PieChart username= {username}/>
+        </div>
       </div>
       <div className="accounts" id="accounts">
         <h1 className="headings">Other Accounts</h1>
