@@ -27,8 +27,8 @@ function App() {
       <Route path="/" element={<Login/>}/>
       {/* <Route path="/:username" element={<Dashboard/>}/> */}
       <Route path="/dashboard/:username" element={<Dashboard/>}/>
-      <Route path="/addnew" element={<AddNew/>}/>
-      <Route path="/monthly" element={<Monthly/>}/>
+      <Route path="/addnew/:username" element={<AddNew/>}/>
+      <Route path="/monthly/:username" element={<Monthly/>}/>
       <Route path="/loginuser" element={<Login/>}/>
       <Route name="editprofile" path="/editprofile/:username" element={<EditProfile/>}/>
       

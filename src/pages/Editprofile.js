@@ -72,7 +72,7 @@ export default function Home()
         <>
 
             <div className="container-addNew">
-                <Navbar/>
+                <Navbar username={username}/>
 
                 <h2 className="todayH2">Edit Profile</h2>
                 <div className='edit-profile-inputs'>

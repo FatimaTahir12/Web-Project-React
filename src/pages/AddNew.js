@@ -4,10 +4,11 @@ import "../styles/style.css"
 import Navbar from '../components/navbar'
 import React, {useState, useEffect} from 'react';
 import Popup from '../components/popup';
-
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 export default function Home() {
-
+  const { username } = useParams();
   const[items, setItems] = useState([])
   const [newPrice, setPrice] = useState("");
   const [newGoal, setNewGoal] = useState("");
@@ -61,6 +62,7 @@ const updateGoal = () => {
     togglePopUp();
     AddEntry();  
     postCategoriesAndPrice();
+    addExpense();
   }
 
   function showEntry_2(){
@@ -158,10 +160,40 @@ const newPopUp = () =>{
      theme = "dark";
   }
 
+  const getData = async() => {
+    try {
+        const response = await axios.post('/update-profile', {username: username}).then((res) => {
+            console.log(res.data);
+            if (res.status === 200) {
+                console.log("success");
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+  const addExpense = async() => {
+    try {
+        console.log(username);
+        console.log(newPrice);
+        console.log(newCategory);
+        const response = await axios.post('/add-expense', {username: username, amount: newPrice, category: newCategory}).then((res) => {
+            console.log(res.data);
+            if (res.status === 200) {
+                console.log("success");
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
+
   return (      
     <>
       <div className={`container-addNew ${theme}`}>
-      <Navbar/>
+      <Navbar username={username}/>
       <div className="todayTab">
         <h2 className="todayH2">Today's Expenditures</h2>   
         <button
