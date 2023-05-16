@@ -200,6 +200,8 @@ app.post("/add-goal", async (req, res) => {
   try {
       const {username, category, amount} = req.body;
 
+      amount = parseInt(amount);
+
       if (!(username && category && amount)) {
         res.status(400).send("All input is required");
       }
@@ -229,7 +231,7 @@ app.post("/add-goal", async (req, res) => {
       
       if(user){
         // return new item
-        res.status(200).json(goal);
+        res.status(200).send(goal);
       }
       else {
         res.status(400).send("Invalid user")

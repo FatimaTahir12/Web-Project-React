@@ -19,6 +19,7 @@ export default function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editPriority, setEditPriority] = useState('');
+  const [goalCategory, setGoalCategory] = useState("");
   const [category_2, setCategory_2] = useState("");
   const [toggle, setToggle] = useState(true)
 
@@ -29,11 +30,25 @@ const postCategoriesAndPrice = () => {
 }
 
 const updateAmount = () => {
-
+  
 }
 
-const updateGoal = () => {
-
+const updateGoal = async () => {
+  try {
+    console.log(username);
+    console.log(newGoal);
+    console.log(goalCategory.category);
+    const response = await axios.post('/add-goal', {username: username, amount: newGoal, category: goalCategory.category }).then((res) => { 
+      console.log(response.data);
+      console.log(res.data);
+      console.log(res.status);
+      if (res.status === 200) {
+        console.log("success"); 
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 
@@ -55,7 +70,7 @@ const updateGoal = () => {
     const isButton = e.target.nodeName === 'BUTTON';
 
     if (!isButton) return;
-    handleAmountChange();
+    handleGoalChange();
   };
 
   function showEntry(){
@@ -114,7 +129,7 @@ const blaaahh = (index, entry) => {
 };
 
 const addGoal = (index, entry) => {
-
+  setGoalCategory(entry);
   setNewGoalIndex(index);
   setNewGoal(entry);
   setIsOpen_3(true);
@@ -158,19 +173,6 @@ const newPopUp = () =>{
   }
   else{
      theme = "dark";
-  }
-
-  const getData = async() => {
-    try {
-        const response = await axios.post('/update-profile', {username: username}).then((res) => {
-            console.log(res.data);
-            if (res.status === 200) {
-                console.log("success");
-            }
-        });
-    } catch (error) {
-        console.log(error);
-    }
   }
 
   const addExpense = async() => {
@@ -247,10 +249,10 @@ const newPopUp = () =>{
 
           <div className="edit-delete">
 
-            <button className="btn add" id=""  value={0}>
-                <span onClick={() => { blaaahh(index, entry) }} className="material-symbols-outlined ">
-                edit
-                </span> 
+            <button className="btn add" id=""  value={0} onClick={() => { addGoal(index, entry) }}>
+              <span class="material-symbols-outlined">
+              edit
+              </span>
             </button>
 
             <button className="btn add" id="" onClick={() => handleDelete(index)} value={0}>
@@ -259,11 +261,12 @@ const newPopUp = () =>{
               </span>
             </button>
 
-            <button className="btn add" id=""  value={0} onClick={() => { addGoal(index, entry) }}>
-              <span class="material-symbols-outlined">
-              flag
-              </span>
-            </button>
+            {/* <button className="btn add" id=""  value={0}>
+                <span onClick={() => { blaaahh(index, entry) }} className="material-symbols-outlined ">
+                flag
+                </span> 
+            </button> */}
+
           </div>
         </div>
        </div>
@@ -272,7 +275,7 @@ const newPopUp = () =>{
 
     </div>
 
-    {isOpen_2 && <Popup content={<>
+    {/* {isOpen_2 && <Popup content={<>
       
       <div className='inputFields'>
         <h2 className="h_2 heading-popup">Edit Amount</h2>
@@ -282,13 +285,13 @@ const newPopUp = () =>{
       </div>
     </>}
     handleClose={togglePopup2}
-    />}
+    />} */}
 
     {isOpen_3 && <Popup content={<>
       
       <div className='inputFields'>
         <h2 className="h_2 heading-popup">Add Goal</h2>
-        <h2 className="editCat">Category selected: {category_2.category}</h2>
+        <h2 className="editCat">Category selected: {goalCategory.category}</h2>
           <input id="input_2"
               onChange={(e) => setNewGoal(e.target.value)}/>
           <button className="submit_2 btn addBtn" onClick={handleGoalChange}>submit</button>
