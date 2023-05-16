@@ -1,11 +1,12 @@
 "use client";
 
+import { useParams } from 'react-router-dom';
 import Navbar from '../components/navbar'
 import "../styles/style.css"
 
 
 export default function Home() {
-
+    const { username } = useParams();
     let theme = '';
 
 
@@ -18,7 +19,7 @@ export default function Home() {
     return (
         <>
         <div className={`container-monthly ${theme}`}>
-        <Navbar/>
+        <Navbar  username={username}/>
             <div className="monthTab">
                 <div className="months">
                 <span class="material-symbols-outlined md1">

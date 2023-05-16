@@ -22,9 +22,9 @@ export default function Home({username}) {
       <span className="material-symbols-outlined md">
 dashboard
 </span>
-        <a href='/' style={{ color: 'inherit', textDecoration: 'inherit'}}>
+      <Link to={`/dashboard/${username}`}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
         <h3> Dashboard</h3>
-        </a>
+      </Link>
       </div>
       <div
         className="stats row"
@@ -34,29 +34,27 @@ dashboard
         <span className="material-symbols-outlined md">
 analytics
 </span>
-        <a href='/monthly' style={{ color: 'inherit', textDecoration: 'inherit'}}>
+      <Link to={`/monthly/${username}`}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
         <h3> Monthly Stats</h3>
-        </a>
+      </Link>
       </div>
       <div className="stats row">
       <span className="material-symbols-outlined md">
 add_box
 </span>
-        <a href='/addnew' style={{ color: 'inherit', textDecoration: 'inherit'}}>
+      <Link to={`/addnew/${username}`}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
         <h3> Add New</h3>
-        </a>
+        </Link>
       </div>
       
       <div className="stats row">
       <span className="material-symbols-outlined md">
 add_box
 </span>
-        {/* <a href='/editprofile'> */}
-          <Link to={`/editprofile/${username}`}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
+        <Link to={`/editprofile/${username}`}  style={{ color: 'inherit', textDecoration: 'inherit'}}>
 
-            <h3> Edit Profile</h3>
-          </Link>
-        {/* </a> */}
+          <h3> Edit Profile</h3>
+        </Link>
       </div>
 
       <div className="stats row logout">
