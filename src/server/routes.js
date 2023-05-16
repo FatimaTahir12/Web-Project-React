@@ -215,8 +215,6 @@ app.post("/add-goal", async (req, res) => {
   try {
       const {username, category, amount} = req.body;
 
-      amount = parseInt(amount);
-
       if (!(username && category && amount)) {
         res.status(400).send("All input is required");
       }
