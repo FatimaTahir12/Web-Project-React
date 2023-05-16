@@ -1,10 +1,10 @@
 "use client";
 import React, { createContext, useState, useEffect } from 'react';
-
+import axios from 'axios';
 //import {btnClicked }  from "../script"   
 import "../styles/style.css"
 import Navbar from '../components/navbar'
-import axios from 'axios';
+import Notifications from '../components/Notifications';
 import { togglePopUp, togglePopUp2 }  from "../script"  
 import { useLocation, useParams } from 'react-router-dom';
 import PieChart from '../components/PieChart';
@@ -13,8 +13,29 @@ export const ThemeContext = createContext(null);
 export default function Home(props) {
   // const {state} = useLocation();
   const { username } = useParams(); // Read values passed on state
+  const [userData, setUserData] = useState();
 
+  const getUserUpdates = async(e) => {
+    try {
+        const response = await axios.post('/updates', {"username": username}).then((res) => {
+            setUserData(res.data.map(function({category, goal_amount, expense_amount}) {if(((goal_amount - expense_amount)/goal_amount) > 0.8)  return [category, ((goal_amount - expense_amount)/goal_amount)*100] }));
+            
+            if (res.status === 200) {
+              // console.log("success")
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
+  function generateNotifications() {
+    getUserUpdates();
+    // console.log(userData[0]);
+    // const expenses = user.expenses.map(function({category, amount}) {return [category, amount]});
+    
+    // const goals = user.goals.map(function(item) {return [item.expense_category, item.amount]});
+  }
 
   function handleClick(event){
     //setCategory(event.currentTarget.id);
@@ -87,8 +108,8 @@ export default function Home(props) {
       return (
           <>
           <ThemeContext.Provider value={{ theme, toggleTheme }}>
-          <div className={`container ${theme}  `}>
-    <div className="header">
+          <div className={`container ${theme}  `} >
+    <div className="header" onLoad={generateNotifications()}>
       <div className="nameplate" id="nameplate">
         {/* <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW1p196FdFnjs53-qod0Iv6TbQwPWf3M4yZTRbJHH9KQ&s"
@@ -113,8 +134,9 @@ export default function Home(props) {
     </div>
   <Navbar  username={username}/>
     <div className="Main">
-      <div className="recent" id="recent">
+      <div className="recent" id="recent" >
         <h1 className="headings ">Notification</h1>
+        <Notifications notifications={userData}/>
       </div>
       <div className="monthly" id="monthly">
         <h1 className="headings">Recent Transactions</h1>

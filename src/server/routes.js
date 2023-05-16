@@ -1,7 +1,7 @@
 const User  = require("./models/user");
 const Expense = require("./models/expense");
 const Goal = require("./models/goal");
-
+const Update = require("./models/update");
 const express = require("express");
 const auth = require("./middleware/auth");
 const bcrypt = require("bcryptjs");
@@ -157,7 +157,15 @@ app.post("/add-expense", async (req, res) => {
           newAmount += Number(amount);
           const update = {amount: newAmount}
           await temp.updateOne(update)
-          res.status(201).send(temp);
+
+          const tempupdate = await Update.findOne({username: username, category: category})
+          if (tempupdate) {
+            var newExpense = Number(tempupdate.expense_amount);
+            newExpense += Number(amount);
+            const update = {expense_amount: newExpense}
+            await tempupdate.updateOne(update)
+          }
+          res.status(200).send(temp);
           
           return;
         }
@@ -166,10 +174,17 @@ app.post("/add-expense", async (req, res) => {
         const expense = await Expense.create({
             username,
             expense_category: category,
-            amount, // sanitize: convert email to lowercase
+            amount: Number(amount), // sanitize: convert email to lowercase
         });
+
         const user = await User.findOneAndUpdate({username}, {$push: {expenses: expense}});
 
+        const update = await Update.create({
+          username,
+          category,
+          expense_amount: Number(amount),
+          goal_amount: 0,
+        })
         // const tempgoal = await Goal.findOne({username: username, goal_category: category})
 
         // if(tempgoal === null) {
@@ -207,22 +222,26 @@ app.post("/add-goal", async (req, res) => {
       // const temp = Goal.findOneAndUpdate({username, category}, {amount: amount, goal_date: goaldate});
       const temp = await Goal.findOne({username: username, goal_category: category})
       if(temp ) {
-
-        const update = {amount: amount}
+        const today = new Date();
+        const update = {amount: amount, goal_date: today}
         await temp.updateOne(update)
+
+        const tempupdate = await Update.findOne({username: username, category: category})
+          if (tempupdate) {
+            const update = {goal_amount: Number(amount)}
+            await tempupdate.updateOne(update)
+          }
         res.status(201).send(temp);
         
         return;
       }
-      
-      // goaldate.setMonth(goaldate.getMonth + 1);
-      // goaldate.setDate(1);
+
 
       const goal = await Goal.create({
           username,
           goal_category: category,
           goal_date:goaldate,
-          amount, 
+          amount: Number(amount), 
       });
 
       const user = await User.findOneAndUpdate({username}, {$push: {goals: goal}});
@@ -240,19 +259,37 @@ app.post("/add-goal", async (req, res) => {
   }
 });
 
-app.post("/generate-notifications", async (req, res) => {
+app.post("/update-goal", async (req, res) => {
   try {
-    const {username} = req.body;
-    const filter = {username: username}
-    const user = await User.find(filter).populate("goals").populate("expenses");
-    const expenses = user.expenses;
-    const goals = user.goals;
+    const {username, category, amount} = req.body;
 
+    const goal = await Goal.findOne({username:username, goal_category: category});
+    const today = new Date();
 
-  } catch(err) {
+    const update = {goal_date: today, amount: amount};
+    await goal.updateOne(update);
+    
+    const expense = await Expense.findOne({username:username, expense_category: category});
+
+    const expenseUpdate = {amount: 0};
+    await expense.updateOne(expenseUpdate);
+    res.status(200).send("Goal Updated");
+  }
+  catch (err) {
     console.log(err);
   }
 });
+app.post("/updates", async (req, res) => {
+  try {
+    const {username} = req.body;
+    const filter = {username: username}
+    const updates = await Update.find(filter);
+    res.status(200).json(updates);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 
 app.post("/refresh-goal", async (req, res) => {
   try {
@@ -280,26 +317,7 @@ app.post("/refresh-goal", async (req, res) => {
   }
 });
 
-app.post("/update-goal", async (req, res) => {
-  try {
-    const {username, category, amount} = req.body;
 
-    const goal = await Goal.findOne({username:username, goal_category: category});
-    const today = new Date();
-
-    const update = {goal_date: today, amount: amount};
-    await goal.updateOne(update);
-    
-    const expense = await Expense.findOne({username:username, expense_category: category});
-
-    const expenseUpdate = {amount: 0};
-    await expense.updateOne(expenseUpdate);
-    res.status(200).send("Goal Updated");
-  }
-  catch (err) {
-    console.log(err);
-  }
-});
 
 app.post("/goals", async (req, res) => {
   try {
@@ -339,7 +357,7 @@ app.post("/user", async (req, res) => {
   try {
     const {username} = req.body;
     const filter = {username: username}
-    const user = await User.findOne(filter);
+    const user = await User.findOne(filter).populate("expenses").populate("goals");
     res.status(200).json(user);
   } catch (err) {
     console.log(err);

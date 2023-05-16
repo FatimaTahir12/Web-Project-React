@@ -35,7 +35,6 @@ const PieChart = ({username}) => {
         try {
 
             const fetchData = await axios.post('/expenses', {"username": username});
-            console.log(fetchData.data);
             let result = fetchData.data.map(({amount}) => amount).reduce((partialSum, a) => partialSum + a, 0);
             setExpenses(result);
             
@@ -48,7 +47,6 @@ const PieChart = ({username}) => {
     const getGoals = async () => {
         try {
             const fetchData = await axios.post('/goals', {"username": username});
-            console.log(fetchData.data);
             let result = fetchData.data.map(({amount}) => amount).reduce((partialSum, a) => partialSum + a, 0);
             setGoals(result - expenses);
             
@@ -58,7 +56,6 @@ const PieChart = ({username}) => {
     }
 
     const loadData = () => {
-        console.log(username);
         getExpenses();
         getGoals();
     }
