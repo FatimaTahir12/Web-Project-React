@@ -20,7 +20,6 @@ export default function Home() {
   const [editingIndex, setEditingIndex] = useState(-1);
   const [editPriority, setEditPriority] = useState('');
   const [goalCategory, setGoalCategory] = useState("");
-  const [category_2, setCategory_2] = useState("");
   const [toggle, setToggle] = useState(true);
   const [list, setList] = useState([]);
   const [Error, setError] = useState(false);
@@ -114,26 +113,26 @@ const updateAddNew = async () => {
 
   
   const handleDelete = (index) => {
-    const updatedList = [...items];
+    const updatedList = [...list];
   //  updatedList[index].goal = "";
     updatedList.splice(index, 1);
     
-    setItems(updatedList);
+    setList(updatedList);
   };
 
   const AddEntry = () => {
 
-  const prevCategory  = items.findIndex(item => item.category === newCategory);
+  const prevCategory  = list.findIndex(list => list.category === newCategory);
 
   if(prevCategory == -1){
 
     if (newCategory.trim() !== "") {
-      setItems([
-        ...items,
+      setList([
+        ...list,
         {
-          price: newPrice,
+          expense_amount: newPrice,
           category: newCategory,
-          goal: "",
+          goal_amount: "",
         //  percentage: 0,
         },
       ]);
@@ -143,10 +142,10 @@ const updateAddNew = async () => {
     }
   }else{
 
-        const updatedList = [...items];
-        const temp1 = parseFloat(updatedList[prevCategory].price);
+        const updatedList = [...list];
+        const temp1 = parseFloat(updatedList[prevCategory].expense_amount);
         const temp2 = parseFloat(newPrice);
-        updatedList[prevCategory].price = temp1 + temp2;
+        updatedList[prevCategory].expense_amount = temp1 + temp2;
         setItems(updatedList);
     }
 }
@@ -154,7 +153,7 @@ const updateAddNew = async () => {
 
 const blaaahh = (index, entry) => {
   setEditingIndex(index);
-  setCategory_2(entry);
+//  setCategory_2(entry);
   setIsOpen_2(true);
 };
 
@@ -178,9 +177,13 @@ const handleAmountChange = () => {
 const handleGoalChange = (event) => {
 
   setError(false);
-  const newItemList = [...items];
- 
-  if(parseInt(newGoal) > parseInt(newItemList[goalIndex].price) ){
+  const newItemList = [...list];
+  newItemList[goalIndex].goal_amount = newGoal;
+  setList(newItemList);
+  updateGoal(); 
+  setIsOpen_3(!isOpen_3);
+  
+ {/* if(parseInt(newGoal) > parseInt(newItemList[goalIndex].price) ){
   
   setError(false)
   newItemList[goalIndex].goal = newGoal;
@@ -191,7 +194,7 @@ const handleGoalChange = (event) => {
   }else{
     setIsOpen_3(isOpen_3);
     setError(true);
-  }
+  }*/}
 };
 
 const togglePopup_2 = e => {
@@ -266,19 +269,19 @@ const newPopUp = () =>{
       </button>
 
     <div className="added">
-      {items.map((entry, index) => (
+      {list.map((entry, index) => (
          <div key={index}>
 
           <div className="whole-row"> 
             <div className="bar oops">
-            <div className="bar-color" style={{ width: `${(parseInt(entry.price)/parseInt(entry.goal))*100}%`, backgroundColor:`${colorChange(index)}`}}></div>
+            <div className="bar-color" style={{ width: `${(parseInt(entry.expense_amount)/parseInt(entry.goal_amount))*100}%`, backgroundColor:`${colorChange(index)}`}}></div>
             <img
               className="img2"
               src="https://cdn-icons-png.flaticon.com/256/9616/9616987.png"
               alt=""
             />
             <p className="name1 ">{entry.category}</p>
-            <p className="money">${entry.price} / ${entry.goal}</p>
+            <p className="money">${entry.expense_amount} / ${entry.goal_amount}</p>
           </div>
 
           <div className="edit-delete">
@@ -294,32 +297,12 @@ const newPopUp = () =>{
               delete
               </span>
             </button>
-
-            {/* <button className="btn add" id=""  value={0}>
-                <span onClick={() => { blaaahh(index, entry) }} className="material-symbols-outlined ">
-                flag
-                </span> 
-            </button> */}
-
           </div>
         </div>
        </div>
 
          ))}
-
     </div>
-
-    {/* {isOpen_2 && <Popup content={<>
-      
-      <div className='inputFields'>
-        <h2 className="h_2 heading-popup">Edit Amount</h2>
-        <h2 className="editCat">Category selected: {category_2.category}</h2>
-        <input id="input_2" value={editPriority} placeholder={category_2.price} onChange={(e) => setEditPriority(e.target.value)}/>
-        <button className="submit_2 btn addBtn" onClick={handleAmountChange}>submit</button>
-      </div>
-    </>}
-    handleClose={togglePopup2}
-    />} */}
 
     {isOpen_3 && <Popup content={<>
      

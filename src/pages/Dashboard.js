@@ -15,7 +15,21 @@ export default function Home(props) {
   const { username } = useParams(); // Read values passed on state
   const [list, setList] = useState([]);
 
-  
+  const colorChange = (x) => {
+
+    if(x===1) return '#5ca2ad67'
+    if(x===2) return '#70ad5c67'
+    if(x===2) return '#5c64ad67' 
+    if(x===4) return '#ad5f5c67'
+    if(x===5) return '#ad875c67'
+    if(x===6) return '#5c70ad67'
+    if(x===7) return '#915cad67'
+    if(x===8) return '#ada55c67'
+    if(x===9) return '#5cad9767'
+    if(x===10) return '#9b5cad67'
+      
+  }
+    
   // const getUserUpdates = async(e) => {
   //   try {
   //       const response = await axios.post('/updates', {"username": username}).then((res) => {
@@ -54,17 +68,39 @@ export default function Home(props) {
     }
   };
 
+  const [data, setData] = useState([]); // Set initial state to null
+
+
+  useEffect(() => {
+    const filteredData = list.filter(({ goal_amount, expense_amount }) => {
+      const progress = (goal_amount - expense_amount) / goal_amount;
+      return progress > 0.8;
+    });
+  
+    const mappedData = filteredData.map(({ category, goal_amount, expense_amount }) => {
+      const progress = ((goal_amount - expense_amount) / goal_amount) * 100;
+      return [category, progress];
+    });
+  
+    setData(mappedData);
+  }, [list]);
+  
+  
+
+console.log(data);
+  
   useEffect(() => {
     
       // getUserUpdates();
-      console.log(list);
+      
       // console.log(list.filter((v,i) => {
       //   return list.map((val)=> val.category).indexOf(v.category) == i
       // }))
       // const expenses = user.expenses.map(function({category, amount}) {return [category, amount]});
       
       // const goals = user.goals.map(function(item) {return [item.expense_category, item.amount]});
-    
+   
+
   }, [list]);
 
   function handleClick(event){
@@ -169,8 +205,30 @@ export default function Home(props) {
         {list && <Notifications notifications={list}/>}
       </div>
       <div className="monthly" id="monthly">
-        <h1 className="headings">Recent Transactions</h1>
-        
+        <h1 className="headings">Transactions</h1>
+        <div className="categories-popup pops" id="style-2">
+        <div className="added dashboard-cat">
+      {list.map((entry, index) => (
+         <div key={index}>
+
+          <div className="whole-row"> 
+            <div className="bar oops">
+            <div className="bar-color" style={{ width: `${(parseInt(entry.expense_amount)/parseInt(entry.goal_amount))*100}%`, backgroundColor:`${colorChange(index)}`}}></div>
+            <img
+              className="img2"
+              src="https://cdn-icons-png.flaticon.com/256/9616/9616987.png"
+              alt=""
+            />
+            <p className="name1 ">{entry.category}</p>
+            <p className="money">${entry.expense_amount} / ${entry.goal_amount}</p>
+          </div>
+        </div>
+       </div>
+
+         ))}
+
+    </div>
+    </div>
       </div>
     </div>
     <div className="Aside">
