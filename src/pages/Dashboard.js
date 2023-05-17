@@ -13,57 +13,29 @@ export const ThemeContext = createContext(null);
 export default function Home(props) {
   // const {state} = useLocation();
   const { username } = useParams(); // Read values passed on state
-  const [list, setList] = useState([]);
+  const [userData, setUserData] = useState();
 
-  
-  // const getUserUpdates = async(e) => {
-  //   try {
-  //       const response = await axios.post('/updates', {"username": username}).then((res) => {
-  //           setUserData(...userData, res.data.map(function({category, goal_amount, expense_amount}) {if(((goal_amount - expense_amount)/goal_amount) > 0.8)  return [category, ((goal_amount - expense_amount)/goal_amount)*100] }));
-  //           console.log(res.data);
-  //           console.log(userData);
-  //           if (res.status === 200) {
-  //             // console.log("success")
-  //           }
-  //       });
-  //   } catch (error) {
-  //       console.log(error);
-  //   }
-  // }
-
-  useEffect(() => {
-    updateData();
-    
-  }, []);
-
-  const updateData = async () => {
+  const getUserUpdates = async(e) => {
     try {
-      console.log(username);
-      const response = await axios.post('/updates', { username: username });
-      if (response.status === 200) {
-        const newList = response.data.map((item) => ({
-          username: item.username,
-          category: item.category,
-          expense_amount: item.expense_amount,
-          goal_amount: item.goal_amount,
-        }));
-        setList((prevList) => [...prevList, ...newList]);
-        console.log("success");
-      }
+        const response = await axios.post('/updates', {"username": username}).then((res) => {
+            setUserData(res.data.map(function({category, goal_amount, expense_amount}) {if(((goal_amount - expense_amount)/goal_amount) > 0.8)  return [category, ((goal_amount - expense_amount)/goal_amount)*100] }));
+            
+            if (res.status === 200) {
+              // console.log("success")
+            }
+        });
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  };
+  }
 
-  useEffect(() => {
+  function generateNotifications() {
+    getUserUpdates();
+    // console.log(userData[0]);
+    // const expenses = user.expenses.map(function({category, amount}) {return [category, amount]});
     
-      // getUserUpdates();
-      console.log(list);
-      // const expenses = user.expenses.map(function({category, amount}) {return [category, amount]});
-      
-      // const goals = user.goals.map(function(item) {return [item.expense_category, item.amount]});
-    
-  }, [list]);
+    // const goals = user.goals.map(function(item) {return [item.expense_category, item.amount]});
+  }
 
   function handleClick(event){
     //setCategory(event.currentTarget.id);
@@ -137,7 +109,7 @@ export default function Home(props) {
           <>
           <ThemeContext.Provider value={{ theme, toggleTheme }}>
           <div className={`container ${theme}  `} >
-    <div className="header">
+    <div className="header" onLoad={generateNotifications()}>
       <div className="nameplate" id="nameplate">
         {/* <img
           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW1p196FdFnjs53-qod0Iv6TbQwPWf3M4yZTRbJHH9KQ&s"
@@ -164,7 +136,7 @@ export default function Home(props) {
     <div className="Main">
       <div className="recent" id="recent" >
         <h1 className="headings ">Notification</h1>
-        {list && <Notifications notifications={list}/>}
+        <Notifications notifications={userData}/>
       </div>
       <div className="monthly" id="monthly">
         <h1 className="headings">Recent Transactions</h1>
