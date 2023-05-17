@@ -6,8 +6,6 @@ import React, {useState, useEffect} from 'react';
 import Popup from '../components/popup';
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { get } from "mongoose";
-import { use } from "../server/routes";
 
 export default function Home() {
   const { username } = useParams();
