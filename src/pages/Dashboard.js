@@ -184,11 +184,6 @@ console.log(data);
         /> */}
         <h1 className="one">{username}</h1>
       </div>
-      <button className="settings btn" id="btn"  onClick={togglePopUp}>
-      <span className="material-symbols-outlined">
-  add
-  </span>
-      </button>
       <button
         className="mode btn"
         id="btn_sunny"
@@ -201,7 +196,7 @@ console.log(data);
   <Navbar  username={username}/>
     <div className="Main">
       <div className="recent" id="recent" >
-        <h1 className="headings ">Notification</h1>
+        <h1 className="headings ">Notifications</h1>
         {list.map((entry, index) =>{
           const percentage = ((entry.expense_amount)/entry.goal_amount)*100
           if(entry.goal_amount === 0){
