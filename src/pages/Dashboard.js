@@ -4,7 +4,6 @@ import axios from 'axios';
 //import {btnClicked }  from "../script"   
 import "../styles/style.css"
 import Navbar from '../components/navbar'
-import Notifications from '../components/Notifications';
 import { togglePopUp, togglePopUp2 }  from "../script"  
 import { useLocation, useParams } from 'react-router-dom';
 import PieChart from '../components/PieChart';
@@ -30,6 +29,8 @@ export default function Home(props) {
       
   }
     
+  const [userData, setUserData] = useState([]);
+  
   // const getUserUpdates = async(e) => {
   //   try {
   //       const response = await axios.post('/updates', {"username": username}).then((res) => {
@@ -47,7 +48,6 @@ export default function Home(props) {
 
   useEffect(() => {
     updateData();
-    
   }, []);
 
   const updateData = async () => {
@@ -202,7 +202,21 @@ console.log(data);
     <div className="Main">
       <div className="recent" id="recent" >
         <h1 className="headings ">Notification</h1>
-        {list && <Notifications notifications={list}/>}
+        {list.map((entry, index) =>{
+          const percentage = ((entry.expense_amount)/entry.goal_amount)*100
+          if(entry.goal_amount === 0){
+          return(<div key={index}>
+            <p>You have not set a goal for category {entry.category}</p>
+          </div>)
+          }
+
+          if(percentage >= 80){
+          return(<div key={index}>
+            <p>You have used up {percentage}% of your limit in category {entry.category}</p>
+          </div>)
+          }
+          
+        })}
       </div>
       <div className="monthly" id="monthly">
         <h1 className="headings">Transactions</h1>
