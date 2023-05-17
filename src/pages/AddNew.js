@@ -23,6 +23,7 @@ export default function Home() {
   const [category_2, setCategory_2] = useState("");
   const [toggle, setToggle] = useState(true);
   const [list, setList] = useState([]);
+  const [Error, setError] = useState(false);
 
 {/**Rakeen key functions */}
 
@@ -90,9 +91,11 @@ const updateAddNew = async () => {
   };
 
   const togglePopup3 = (e) => {
+    setError(false)
     setIsOpen_3(!isOpen_3);
     const isButton = e.target.nodeName === 'BUTTON';
-
+    
+    
     if (!isButton) return;
     handleGoalChange();
   };
@@ -112,7 +115,9 @@ const updateAddNew = async () => {
   
   const handleDelete = (index) => {
     const updatedList = [...items];
+  //  updatedList[index].goal = "";
     updatedList.splice(index, 1);
+    
     setItems(updatedList);
   };
 
@@ -128,10 +133,11 @@ const updateAddNew = async () => {
         {
           price: newPrice,
           category: newCategory,
-          goal: newGoal,
+          goal: "",
+        //  percentage: 0,
         },
       ]);
-      setPrice("0");
+      setPrice("");
       setCategory("");
       setNewGoal("");
     }
@@ -169,12 +175,23 @@ const handleAmountChange = () => {
   
 };
 
-const handleGoalChange = () => {
+const handleGoalChange = (event) => {
+
+  setError(false);
   const newItemList = [...items];
+ 
+  if(parseInt(newGoal) > parseInt(newItemList[goalIndex].price) ){
+  
+  setError(false)
   newItemList[goalIndex].goal = newGoal;
   setItems(newItemList);
-  setIsOpen_3(false);
   updateGoal(); 
+  setIsOpen_3(!isOpen_3);
+  
+  }else{
+    setIsOpen_3(isOpen_3);
+    setError(true);
+  }
 };
 
 const togglePopup_2 = e => {
@@ -184,6 +201,21 @@ const togglePopup_2 = e => {
 
   if(!isButton) 
     return
+}
+
+const colorChange = (x) => {
+
+  if(x===1) return '#5ca2ad67'
+  if(x===2) return '#70ad5c67'
+  if(x===2) return '#5c64ad67' 
+  if(x===4) return '#ad5f5c67'
+  if(x===5) return '#ad875c67'
+  if(x===6) return '#5c70ad67'
+  if(x===7) return '#915cad67'
+  if(x===8) return '#ada55c67'
+  if(x===9) return '#5cad9767'
+  if(x===10) return '#9b5cad67'
+    
 }
 
 const newPopUp = () =>{
@@ -234,34 +266,12 @@ const newPopUp = () =>{
       </button>
 
     <div className="added">
-      <div className="bar oops">
-        <div className="bar-color clr2" ></div>
-        <img
-          className="img2"
-          src="https://cdn-icons-png.flaticon.com/256/4359/4359922.png"
-          alt=""
-        />
-        <p className="name1 ">Food</p>
-        <p className="money">$3.15</p>
-      </div>
-      <div className="bar oops">
-        <div className="bar-color clr3"></div>
-        <img
-          className="img2"
-          src="https://cdn-icons-png.flaticon.com/256/9616/9616987.png"
-          alt=""
-        />
-        <p className="name1 ">Clothes</p>
-        <p className="money">$3.15</p>
-      </div>
-
-
       {items.map((entry, index) => (
          <div key={index}>
 
           <div className="whole-row"> 
             <div className="bar oops">
-            <div className="bar-color clr3" style={{ width: `${50}%` }}></div>
+            <div className="bar-color" style={{ width: `${(parseInt(entry.price)/parseInt(entry.goal))*100}%`, backgroundColor:`${colorChange(index)}`}}></div>
             <img
               className="img2"
               src="https://cdn-icons-png.flaticon.com/256/9616/9616987.png"
@@ -312,13 +322,14 @@ const newPopUp = () =>{
     />} */}
 
     {isOpen_3 && <Popup content={<>
-      
+     
       <div className='inputFields'>
         <h2 className="h_2 heading-popup">Add Goal</h2>
         <h2 className="editCat">Category selected: {goalCategory.category}</h2>
           <input id="input_2"
               onChange={(e) => setNewGoal(e.target.value)}/>
-          <button className="submit_2 btn addBtn" onClick={handleGoalChange}>submit</button>
+          {Error && <h5>You can only add a goal larger than the amount </h5>}
+          <button className="submit_2 btn addBtn" id="goal_btn" onClick={handleGoalChange}>submit</button>
       </div>
 
       </>}

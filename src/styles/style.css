@@ -58,6 +58,12 @@ h1{
                          
 }
 
+h5{
+  position: relative;
+  color: rgba(255, 0, 0, 0.641);
+  top: 50px;
+}
+
 @media (max-width:1200px){
     .container{
         row-gap: 40px;
@@ -410,9 +416,13 @@ h3{
      left: 0% !important;
   }
 
+  p{
+    background: transparent !important;
+  }
+
   .bar-color{
     position: absolute;
-    width: 29%;
+
     height: 71%;
     background-color: transparent;
     border-radius: 19px; 

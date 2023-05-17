@@ -165,7 +165,7 @@ export default function Home() {
            
                 <input type="text" className="name one" onChange={(e) => onInputChange(e)} name='name' placeholder="name" />
           
-                <input type="text" className="name one" onChange={(e) => onInputChange(e)} name='password' placeholder="Password" />
+                <input type="password" className="name one" onChange={(e) => onInputChange(e)} name='password' placeholder="Password" />
                 </>
                 
                 <button className="login" onClick={(e) => signUpUser(e)}>Sign Up</button>
