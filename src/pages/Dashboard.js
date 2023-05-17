@@ -38,7 +38,6 @@ export default function Home(props) {
 
   const updateData = async () => {
     try {
-      console.log(username);
       const response = await axios.post('/updates', { username: username });
       if (response.status === 200) {
         const newList = response.data.map((item) => ({
@@ -59,6 +58,9 @@ export default function Home(props) {
     
       // getUserUpdates();
       console.log(list);
+      // console.log(list.filter((v,i) => {
+      //   return list.map((val)=> val.category).indexOf(v.category) == i
+      // }))
       // const expenses = user.expenses.map(function({category, amount}) {return [category, amount]});
       
       // const goals = user.goals.map(function(item) {return [item.expense_category, item.amount]});
