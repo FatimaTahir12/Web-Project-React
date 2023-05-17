@@ -10,7 +10,7 @@ import Dashboard from './pages/Dashboard'
 import Monthly from './pages/Monthly'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
   <SpeechProvider appId='06a8c019-0238-475d-8874-038468f6d31e' language='en-US' >
  
 
@@ -19,7 +19,7 @@ root.render(
 </BrowserRouter> }
 
   </SpeechProvider>
-  </React.StrictMode>
+  // {/* </React.StrictMode> */}
 );
 
 // If you want to start measuring performance in your app, pass a function
