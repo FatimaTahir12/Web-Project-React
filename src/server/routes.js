@@ -123,7 +123,7 @@ try {
     // Create token
     
 
-    encryptedPassword = await bcrypt.hash(new_password, 10);
+    const encryptedPassword = await bcrypt.hash(new_password, 10);
 
     // Create user in our database
     const updateduser = await User.updateOne({username: username},{

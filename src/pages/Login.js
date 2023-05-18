@@ -124,7 +124,7 @@ export default function Home() {
     e.preventDefault();
     try {
       const response = await axios.post('/register', signupData).then((res) => {
-        login_signUp;
+        login_signUp();
         console.log(res.data);
         if (res.status === 200) {
           console.log("success");
