@@ -213,11 +213,7 @@ console.log(data);
         /> */}
         <h1 className="one">{username}</h1>
       </div>
-      <button className="settings btn" id="btn"  onClick={togglePopUp}>
-      <span class="material-symbols-outlined">
-mic
-</span>
-      </button>
+
       <button
         className="mode btn"
         id="btn_sunny"

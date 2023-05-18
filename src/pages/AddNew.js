@@ -424,7 +424,7 @@ const newPopUp = () =>{
             </button>
             <button className="loans-div item btn" id="Loans" onClick={handleClick}><div
                 className="colorplate"
-                style={{ backgroundColor: "#9b5cad67" }}
+                style={{ backgroundColor: "#70ad5c67" }}
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/2168/2168799.png"
@@ -435,7 +435,7 @@ const newPopUp = () =>{
               </div></button>
             <button className="shopping-div item btn" id="Shopping" onClick={handleClick}><div
                 className="colorplate"
-                style={{ backgroundColor: "#875cad67" }}
+                style={{ backgroundColor: "#5ca2ad67" }}
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png"
@@ -447,7 +447,7 @@ const newPopUp = () =>{
              
             <button className="groceries-div item btn" id="Groceries" onClick={handleClick}><div
                 className="colorplate"
-                style={{ backgroundColor: "#875cad67" }}
+                style={{ backgroundColor: "#ad5f5c67" }}
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/1261/1261126.png"
@@ -459,7 +459,7 @@ const newPopUp = () =>{
               
             <button className="beverages-div item btn" id="Beverages" onClick={handleClick}><div
                 className="colorplate"
-                style={{ backgroundColor: "#875cad67" }}
+                style={{ backgroundColor: "#ad875c67" }}
               >
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/3050/3050130.png"
