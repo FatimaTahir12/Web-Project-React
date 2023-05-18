@@ -6,6 +6,7 @@ import AddNew from '../pages/AddNew';
 import Login from '../pages/Login';
 import Monthly from '../pages/Monthly'
 import "../styles/style.css"
+
 import { Link } from "react-router-dom";
 
 export default function Home({username}) {

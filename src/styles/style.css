@@ -9,6 +9,8 @@
 }
 
 .dark{
+
+  --notificationss: white;
     --iconcolour : #F5F5F5;
     --headings: #E2D784;
     --navbar: #05595B;
@@ -22,6 +24,8 @@
 }
 
 .light{
+
+  --notificationss: #044A42;
     --iconcolour : #98A9A9;
     --headings: #062925;
     --navbar: #044A42;
@@ -352,7 +356,7 @@ box-shadow:  var(--inset-box-shadow);
     font-size: 40px;
     margin: 7px;  
     position: relative;
-    top: 49px;
+    top: 43px;
     left: -117px;
 }
 
@@ -480,6 +484,7 @@ h3{
     top: 54px;
     font-size: 28px;
     background-color: var(--background-color);
+    background: none !important;
   }
 
   .img2{
@@ -739,6 +744,13 @@ input{
     color: white !important;
 }
 
+#input_2{
+
+  top: 197px !important;
+
+    left: 131px !important
+}
+
 #newPrice:valid{
     position: relative;
   
@@ -895,6 +907,7 @@ input:valid{
     flex-direction: column;
     background-color: #062C30;
     justify-content: center;
+    background: transparent !important;
   }
 
   .popup-box {
@@ -917,24 +930,23 @@ input:valid{
   .box2 {
     position: relative;
     display: flex;
-    width: 25%;
+    width: 27%;
     margin: 0 auto;
     height: auto;
     max-height: 102vh;
     margin-top: calc(100vh - 85vh - 20px);
-    background:#062C30;
+    background: #062C30;
     border-radius: 9px;
     padding: 20px;
     overflow: auto;
     height: 21rem;
     justify-content: center;
     top: 131px;
-
   }
 
   #input_2{
-    top: 67px;
-    left: 0px;
+    top: 97px !important;
+    left: 0px !important;
   }
 
   .close-icon {
@@ -950,8 +962,8 @@ input:valid{
     text-align: center;
     border: 1px solid #999;
     font-size: 20px;
-    top: 10px;
-    left: 344px;
+    top: 11px;
+    left: 374px;
     float: right;
     border-style: none;
   }
@@ -1021,14 +1033,14 @@ input:valid{
 
   .goback{
     position: relative;
-    top: 0px;
-    left: 0px;
+    top: 291px;
+    left: -157px;
   }
 
   .submitcat{
     position: relative;
-    top: 0px;
-    left: 0px;
+    top: 289px !important;
+    left: -163px !important;
   }
 
   
@@ -1045,4 +1057,55 @@ input:valid{
   top: -7px;
   width: 697px;
   height: 270px;
+}
+
+.heading-newCat{
+  top: 78px;
+  left: 258px;
+  font-size: 35px;
+
+}
+
+.submitcat{
+
+  position: relative;
+  top: 320px;
+  left: -163px;
+
+}
+
+.noti{
+  top: -16px;
+  height: 158px
+}
+
+.notif{
+
+  left: -235px;
+    top: -20px;
+}
+
+.notifications{
+
+  color:var(--notificationss);
+  display: flex;
+  justify-content: left;
+  position: relative;
+  left: 270px;
+  padding-bottom: 16px;
+  font-size: 20px
+}
+
+#input_3{
+  position: relative;
+    top: 189px !important;
+    left: 129px !important;
+}
+
+#input_3::placeholder{
+  color: white !important;
+}
+
+#input_3:valid{
+  color: white !important;
 }

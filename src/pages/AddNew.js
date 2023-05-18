@@ -28,6 +28,7 @@ export default function Home() {
 
 useEffect(() => {
   updateAddNew();
+  console.log(list);
 }, []);
 
 const postCategoriesAndPrice = () => {
@@ -132,7 +133,7 @@ const updateAddNew = async () => {
         {
           expense_amount: newPrice,
           category: newCategory,
-          goal_amount: "",
+          goal_amount: newGoal,
         //  percentage: 0,
         },
       ]);
@@ -161,6 +162,9 @@ const addGoal = (index, entry) => {
   setGoalCategory(entry);
   setNewGoalIndex(index);
   setNewGoal(entry);
+
+  //handleGoalChange();
+ // updateGoal(); 
   setIsOpen_3(true);
 
 }
@@ -176,17 +180,18 @@ const handleAmountChange = () => {
 
 const handleGoalChange = (event) => {
 
-  setError(false);
+  
   const newItemList = [...list];
-  newItemList[goalIndex].goal_amount = newGoal;
+{/*  newItemList[goalIndex].goal_amount = newGoal;
   setList(newItemList);
   updateGoal(); 
+  setError(false);
   setIsOpen_3(!isOpen_3);
-  
- {/* if(parseInt(newGoal) > parseInt(newItemList[goalIndex].price) ){
+*/}
+  if(parseInt(newGoal) > parseInt(newItemList[goalIndex].expense_amount) ){
   
   setError(false)
-  newItemList[goalIndex].goal = newGoal;
+  newItemList[goalIndex].goal_amount = newGoal;
   setItems(newItemList);
   updateGoal(); 
   setIsOpen_3(!isOpen_3);
@@ -194,7 +199,7 @@ const handleGoalChange = (event) => {
   }else{
     setIsOpen_3(isOpen_3);
     setError(true);
-  }*/}
+  }
 };
 
 const togglePopup_2 = e => {
@@ -208,17 +213,32 @@ const togglePopup_2 = e => {
 
 const colorChange = (x) => {
 
-  if(x===1) return '#5ca2ad67'
-  if(x===2) return '#70ad5c67'
+  if(x===0) return '#5ca2ad67'
+  if(x===1) return '#70ad5c67'
   if(x===2) return '#5c64ad67' 
-  if(x===4) return '#ad5f5c67'
-  if(x===5) return '#ad875c67'
-  if(x===6) return '#5c70ad67'
-  if(x===7) return '#915cad67'
-  if(x===8) return '#ada55c67'
-  if(x===9) return '#5cad9767'
-  if(x===10) return '#9b5cad67'
+  if(x===3) return '#ad875c67'
+  if(x===5) return '#ad5f5c67'  
+  if(x===9) return '#5c70ad67'
+  if(x===6) return '#915cad67'
+  if(x===7) return '#ada55c67'
+  if(x===8) return '#5cad9767'
+  if(x===4) return '#9b5cad67'
     
+}
+
+const pictureChange = (x) => {
+
+  switch(x){
+  case 'Clothes':  return 'https://cdn-icons-png.flaticon.com/256/9616/9616987.png'
+  case 'Travel':  return 'https://cdn-icons-png.flaticon.com/256/8136/8136650.png'
+  case 'Food':  return 'https://cdn-icons-png.flaticon.com/256/4359/4359633.png'
+  case 'Entertainment':  return 'https://cdn-icons-png.flaticon.com/256/7170/7170790.png'
+  case 'Loans':  return 'https://cdn-icons-png.flaticon.com/512/2168/2168799.png'
+  case 'Shopping':  return 'https://cdn-icons-png.flaticon.com/512/2331/2331970.png'
+  case 'Groceries':  return 'https://cdn-icons-png.flaticon.com/512/1261/1261126.png'
+  case 'Beverages':  return 'https://cdn-icons-png.flaticon.com/512/3050/3050130.png'
+  default: return 'https://cdn-icons-png.flaticon.com/128/6736/6736258.png'
+  }
 }
 
 const newPopUp = () =>{
@@ -277,7 +297,7 @@ const newPopUp = () =>{
             <div className="bar-color" style={{ width: `${(parseInt(entry.expense_amount)/parseInt(entry.goal_amount))*100}%`, backgroundColor:`${colorChange(index)}`}}></div>
             <img
               className="img2"
-              src="https://cdn-icons-png.flaticon.com/256/9616/9616987.png"
+              src={pictureChange(entry.category)}
               alt=""
             />
             <p className="name1 ">{entry.category}</p>
@@ -329,8 +349,8 @@ const newPopUp = () =>{
         </div>
         {!toggle && (
           <>
-        <h3 className="heading-popup">New Category</h3>
-        <input id="input_2" placeholder="Enter a new category" onChange={(e) => setCategory(e.target.value)}/>
+        <h3 className="heading-popup heading-newCat">New Category</h3>
+        <input id="input_3" placeholder="Enter a new category" onChange={(e) => setCategory(e.target.value)}/>
         <button className="btn addBtn submitcat" id="submit" type="submit" onClick={showEntry}>
           Submit
         </button>
