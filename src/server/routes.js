@@ -246,6 +246,11 @@ app.post("/add-goal", async (req, res) => {
 
       const user = await User.findOneAndUpdate({username}, {$push: {goals: goal}});
       
+      const tempupdate = await Update.findOne({username: username, category: category})
+          if (tempupdate) {
+            const update = {goal_amount: Number(amount)}
+            await tempupdate.updateOne(update)
+          }
       if(user){
         // return new item
         res.status(200).send(goal);
