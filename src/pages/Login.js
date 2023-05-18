@@ -21,7 +21,7 @@ export default function Home() {
   const { segment } = useSpeechContext();
   
   const navigate = useNavigate();
-    
+  const [isFlipped, setIsFlipped] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [loginData, setLogin] = useState({
     username: '',
@@ -116,13 +116,21 @@ export default function Home() {
   };
 
   const signUpUser = async (e) => {
+
+    setIsFlipped(true);
+    setTimeout(() => {
+      setIsFlipped(false);
+    }, 100); // Adjust the delay as needed
     e.preventDefault();
     try {
       const response = await axios.post('/register', signupData).then((res) => {
+        login_signUp;
         console.log(res.data);
         if (res.status === 200) {
           console.log("success");
         }
+
+        
       });
     } catch (error) {
       console.log(error);
@@ -133,16 +141,19 @@ export default function Home() {
 
        <div onLoad={login_signUp()}>
  
-        <div className="card" id="card">
+        <div className="card" id="card" style={{
+          transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0)',
+          transition: 'transform 0.3s',
+        }}>
         <div className="front">
             <h1>Welcome Back!</h1>
             <form method="post" action="">
             <div className="fields">
             
-                <input type="text" className="name one" onChange={(e)=> onValueChange(e)}
+                <input type="text" autoComplete="off" className="name one" onChange={(e)=> onValueChange(e)}
               name="username"
 
-            value={loginData.username} placeholder="Username" autoComplete="new-password" />
+            value={loginData.username} placeholder="Username" />
                 <input type="password" className="pass one" onChange={(e)=> onValueChange(e)}
             name="password"  value={loginData.password}  placeholder="Password" autoComplete="new-password"/>
                 <button className="login" onClick={(e) => logInUser(e)}>Log in</button>             
@@ -161,11 +172,11 @@ export default function Home() {
             <div className="fields field_one">
           
               <>
-               <input type="text" className="name one" onChange={(e) => onInputChange(e)} name='username' placeholder="Username" />
+               <input type="text" className="name one" autoComplete="new-password" onChange={(e) => onInputChange(e)} name='username' placeholder="Username" />
            
-                <input type="text" className="name one" onChange={(e) => onInputChange(e)} name='name' placeholder="name" />
+                <input type="text" className="name one" autoComplete="new-password" onChange={(e) => onInputChange(e)} name='name' placeholder="name" />
           
-                <input type="password" className="name one" onChange={(e) => onInputChange(e)} name='password' placeholder="Password" />
+                <input type="password" className="name one" autoComplete="new-password" onChange={(e) => onInputChange(e)} name='password' placeholder="Password" />
                 </>
                 
                 <button className="login" onClick={(e) => signUpUser(e)}>Sign Up</button>

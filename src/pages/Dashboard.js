@@ -16,17 +16,46 @@ export default function Home(props) {
 
   const colorChange = (x) => {
 
-    if(x===1) return '#5ca2ad67'
-    if(x===2) return '#70ad5c67'
+    if(theme === 'dark'){
+
+    if(x===0) return '#5ca2ad67'
+    if(x===1) return '#70ad5c67'
     if(x===2) return '#5c64ad67' 
-    if(x===4) return '#ad5f5c67'
-    if(x===5) return '#ad875c67'
-    if(x===6) return '#5c70ad67'
-    if(x===7) return '#915cad67'
-    if(x===8) return '#ada55c67'
-    if(x===9) return '#5cad9767'
-    if(x===10) return '#9b5cad67'
+    if(x===3) return '#ad875c67'
+    if(x===5) return '#ad5f5c67'  
+    if(x===9) return '#5c70ad67'
+    if(x===6) return '#915cad67'
+    if(x===7) return '#ada55c67'
+    if(x===8) return '#5cad9767'
+    if(x===4) return '#9b5cad67'
+    }
+
+    if(theme === 'light'){
+
+    if(x===0) return '#C70039 '
+    if(x===1) return '#50A72C  '
+    if(x===2) return '#2CA7A5  '
+    if(x===3) return '#A52CA7  '
+    if(x===4) return '#A7712C   '
+    if(x===5) return '#A72C5B '
+    if(x===6) return '#2C7CA7  '
+    }
       
+  }
+
+  const pictureChange = (x) => {
+
+    switch(x){
+    case 'Clothes':  return 'https://cdn-icons-png.flaticon.com/256/9616/9616987.png'
+    case 'Travel':  return 'https://cdn-icons-png.flaticon.com/256/8136/8136650.png'
+    case 'Food':  return 'https://cdn-icons-png.flaticon.com/256/4359/4359633.png'
+    case 'Entertainment':  return 'https://cdn-icons-png.flaticon.com/256/7170/7170790.png'
+    case 'Loans':  return 'https://cdn-icons-png.flaticon.com/512/2168/2168799.png'
+    case 'Shopping':  return 'https://cdn-icons-png.flaticon.com/512/2331/2331970.png'
+    case 'Groceries':  return 'https://cdn-icons-png.flaticon.com/512/1261/1261126.png'
+    case 'Beverages':  return 'https://cdn-icons-png.flaticon.com/512/3050/3050130.png'
+    default: return 'https://cdn-icons-png.flaticon.com/128/6736/6736258.png'
+    }
   }
     
   const [userData, setUserData] = useState([]);
@@ -130,7 +159,7 @@ console.log(data);
   };
   */
 
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
   const [icon, setIcon] = useState(<span className="material-symbols-outlined">
   light_mode
   </span>)
@@ -202,21 +231,26 @@ mic
     <div className="Main">
       <div className="recent" id="recent" >
         <h1 className="headings ">Notifications</h1>
+
+        <div className="categories-popup pops noti" id="style-2">
+        <div className="added dashboard-cat notif">
         {list.map((entry, index) =>{
-          const percentage = ((entry.expense_amount)/entry.goal_amount)*100
+          const percentage = Math.round(((entry.expense_amount)/entry.goal_amount)*100)
           if(entry.goal_amount === 0){
           return(<div key={index}>
-            <p>You have not set a goal for category {entry.category}</p>
+            <p className='notifications'>You have not set a goal for category {entry.category}</p>
           </div>)
           }
 
           if(percentage >= 80){
           return(<div key={index}>
-            <p>You have used up {percentage}% of your limit in category {entry.category}</p>
+            <p className='notifications'>You have used up {percentage}% of your limit in category {entry.category}</p>
           </div>)
           }
           
         })}
+        </div>
+        </div>
       </div>
       <div className="monthly" id="monthly">
         <h1 className="headings">Transactions</h1>
@@ -230,7 +264,7 @@ mic
             <div className="bar-color" style={{ width: `${(parseInt(entry.expense_amount)/parseInt(entry.goal_amount))*100}%`, backgroundColor:`${colorChange(index)}`}}></div>
             <img
               className="img2"
-              src="https://cdn-icons-png.flaticon.com/256/9616/9616987.png"
+              src={pictureChange(entry.category)}
               alt=""
             />
             <p className="name1 ">{entry.category}</p>
